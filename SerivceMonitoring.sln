@@ -3,11 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.64
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{2B14A070-8B76-44D5-9730-A949ADD9C43E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.Monitoring", "Service\WebApi.Monitoring\WebApi.Monitoring.csproj", "{704DB737-2F57-4C87-BF9F-27AC244ADCB9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BoundedContexts", "BoundedContexts", "{2B14A070-8B76-44D5-9730-A949ADD9C43E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{96FD7EEF-97E3-437D-B696-F200C9CAC087}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{FABECC4A-DABE-4B41-8C1A-CBDEDB190703}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{B3913BB4-D0EF-4D61-9A2B-5344E48EF3C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Monitoring", "Framework\Framework.Monitoring\Framework.Monitoring.csproj", "{704DB737-2F57-4C87-BF9F-27AC244ADCB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Service", "Framework\Framework.Patterns\Framework.Service.csproj", "{6EC4EA97-B506-4D27-AEA0-537EC3005460}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Domain", "BoundedContexts\Identity\Identity.Domain\Identity.Domain.csproj", "{9A7D262F-0EFC-45EF-8B3E-4E9948E46702}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Infrastructure", "BoundedContexts\Identity\Identity.Infrastructure\Identity.Infrastructure.csproj", "{06FFED89-42DE-40A7-8D61-508ECEC6C913}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Search", "BoundedContexts\Identity\Identity.Search\Identity.Search.csproj", "{98535117-D759-402A-9B43-BBB950485D99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Service", "BoundedContexts\Identity\Identity.Service\Identity.Service.csproj", "{A4890EAF-9FD0-406E-AC42-EBEB9088C299}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,19 +29,45 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{704DB737-2F57-4C87-BF9F-27AC244ADCB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{704DB737-2F57-4C87-BF9F-27AC244ADCB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{704DB737-2F57-4C87-BF9F-27AC244ADCB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{704DB737-2F57-4C87-BF9F-27AC244ADCB9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{96FD7EEF-97E3-437D-B696-F200C9CAC087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{96FD7EEF-97E3-437D-B696-F200C9CAC087}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96FD7EEF-97E3-437D-B696-F200C9CAC087}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96FD7EEF-97E3-437D-B696-F200C9CAC087}.Release|Any CPU.Build.0 = Release|Any CPU
+		{704DB737-2F57-4C87-BF9F-27AC244ADCB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{704DB737-2F57-4C87-BF9F-27AC244ADCB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{704DB737-2F57-4C87-BF9F-27AC244ADCB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{704DB737-2F57-4C87-BF9F-27AC244ADCB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC4EA97-B506-4D27-AEA0-537EC3005460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC4EA97-B506-4D27-AEA0-537EC3005460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC4EA97-B506-4D27-AEA0-537EC3005460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC4EA97-B506-4D27-AEA0-537EC3005460}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A7D262F-0EFC-45EF-8B3E-4E9948E46702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A7D262F-0EFC-45EF-8B3E-4E9948E46702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A7D262F-0EFC-45EF-8B3E-4E9948E46702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A7D262F-0EFC-45EF-8B3E-4E9948E46702}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06FFED89-42DE-40A7-8D61-508ECEC6C913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06FFED89-42DE-40A7-8D61-508ECEC6C913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06FFED89-42DE-40A7-8D61-508ECEC6C913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06FFED89-42DE-40A7-8D61-508ECEC6C913}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98535117-D759-402A-9B43-BBB950485D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98535117-D759-402A-9B43-BBB950485D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98535117-D759-402A-9B43-BBB950485D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98535117-D759-402A-9B43-BBB950485D99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4890EAF-9FD0-406E-AC42-EBEB9088C299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4890EAF-9FD0-406E-AC42-EBEB9088C299}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4890EAF-9FD0-406E-AC42-EBEB9088C299}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4890EAF-9FD0-406E-AC42-EBEB9088C299}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{704DB737-2F57-4C87-BF9F-27AC244ADCB9} = {2B14A070-8B76-44D5-9730-A949ADD9C43E}
+		{FABECC4A-DABE-4B41-8C1A-CBDEDB190703} = {2B14A070-8B76-44D5-9730-A949ADD9C43E}
+		{704DB737-2F57-4C87-BF9F-27AC244ADCB9} = {B3913BB4-D0EF-4D61-9A2B-5344E48EF3C7}
+		{6EC4EA97-B506-4D27-AEA0-537EC3005460} = {B3913BB4-D0EF-4D61-9A2B-5344E48EF3C7}
+		{9A7D262F-0EFC-45EF-8B3E-4E9948E46702} = {FABECC4A-DABE-4B41-8C1A-CBDEDB190703}
+		{06FFED89-42DE-40A7-8D61-508ECEC6C913} = {FABECC4A-DABE-4B41-8C1A-CBDEDB190703}
+		{98535117-D759-402A-9B43-BBB950485D99} = {FABECC4A-DABE-4B41-8C1A-CBDEDB190703}
+		{A4890EAF-9FD0-406E-AC42-EBEB9088C299} = {FABECC4A-DABE-4B41-8C1A-CBDEDB190703}
 	EndGlobalSection
 EndGlobal
