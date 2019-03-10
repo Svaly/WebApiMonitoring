@@ -16,9 +16,10 @@ namespace WebApi
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
-            InjectFramework.Register(container);
+            RegisterFramework.Register(container);
+            RegisterApplicationServices.Register(container);
 
-            // This is an extension method from the integration package.
+            // This is an extension method from the simple injector web api integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             container.Verify();
 

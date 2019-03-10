@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Framework.Service.Cqrs.Implementation
 {
@@ -11,10 +12,15 @@ namespace Framework.Service.Cqrs.Implementation
             _resolver = resolver;
         }
 
-        public async Task Handle<T>(T command) where T : ICommand
+        public async Task DispatchAsync<T>(T command) where T : ICommand
         {
+            if (command == null)
+            {
+                throw new ArgumentNullException(nameof(command),"Command can not be null.");
+            }
+
             var handler = (ICommandHandler<T>)_resolver.GetService(typeof(ICommandHandler<T>));
-            await handler.Execute(command);
+            await handler.HandleAsync(command);
         }
     }
 }

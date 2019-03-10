@@ -4,6 +4,6 @@ namespace Framework.Service.Cqrs
 {
     public interface ICommandDispatcher
     {
-        Task Handle<T>(T command) where T : ICommand;
+        Task DispatchAsync<T>(T command) where T : ICommand;
     }
 }

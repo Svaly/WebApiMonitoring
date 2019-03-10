@@ -1,35 +1,24 @@
-﻿using Identity.Handlers.Command;
-using System;
-using System.Threading.Tasks;
-using System.Web.Http;
+﻿using System.Threading.Tasks;
 using Framework.Service.Cqrs;
+using Identity.Handlers.Commands;
+using System.Web.Http;
+using Framework.Loging;
 
 namespace WebApi.Controllers
 {
     [RoutePrefix("api/user")]
-    public class UserController : ApiController
+    public class UserController : BaseController
     {
-        private readonly ICommandDispatcher _commandDispatcher;
-
-        public UserController(ICommandDispatcher commandDispatcher)
+        public UserController(ICommandDispatcher commandDispatcher, IApplicationMonitoringLogger logger) 
+            : base(commandDispatcher, logger)
         {
-            _commandDispatcher = commandDispatcher;
         }
 
         [Route()]
         [HttpPost]
         public async Task<IHttpActionResult> RegisterUser(RegisterUserCommand command)
         {
-            try
-            {
-                await _commandDispatcher.Handle(command);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return InternalServerError(e);
-            }
-
+            return await HandleCommand(command);
         }
     }
 }

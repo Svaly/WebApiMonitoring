@@ -1,14 +1,14 @@
-﻿using System;
-using Identity.Handlers.Command;
+﻿using Framework.Service.Cqrs;
+using Identity.Handlers.Commands;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Framework.Service.Cqrs;
 
 namespace Identity.Handlers.CommandHandler
 {
     public sealed class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand>
     {
-        public Task Execute(RegisterUserCommand command)
+        public Task HandleAsync(RegisterUserCommand command)
         {
             return Task.Factory.StartNew(() =>
             {
