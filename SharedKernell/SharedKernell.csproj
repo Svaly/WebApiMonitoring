@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationMonitoringLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,9 +56,9 @@
       <Project>{71b541ac-2b1d-42aa-8351-4ef95e25f2d9}</Project>
       <Name>Framework.Patterns</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FrameworkLoging\Framework.Loging.csproj">
-      <Project>{4f238481-bb47-48ab-8308-fe16081c82c5}</Project>
-      <Name>Framework.Loging</Name>
+    <ProjectReference Include="..\Framework\Framework.Monitoring\Framework.Monitoring.csproj">
+      <Project>{704DB737-2F57-4C87-BF9F-27AC244ADCB9}</Project>
+      <Name>Framework.Monitoring</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

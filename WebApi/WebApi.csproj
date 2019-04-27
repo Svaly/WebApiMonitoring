@@ -56,6 +56,7 @@
     <Compile Include="App_Data\App_Start\WebApiConfig.cs" />
     <Compile Include="Config\DependencyResolver.cs" />
     <Compile Include="Config\Inject\RegisterApplicationServices.cs" />
+    <Compile Include="Config\Inject\RegisterMessageQueue.cs" />
     <Compile Include="Config\Inject\RegisterFramework.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -115,6 +116,10 @@
       <Project>{a4890eaf-9fd0-406e-ac42-ebeb9088c299}</Project>
       <Name>Identity.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Framework.Messaging.Kafka\Framework.Messaging.Kafka.csproj">
+      <Project>{0BEB062D-9E9D-40CB-A826-82303C024E71}</Project>
+      <Name>Framework.Messaging.Kafka</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework.Messaging\Framework.Messaging.csproj">
       <Project>{54b3b085-14c4-49a1-abe3-e9b935f464cd}</Project>
       <Name>Framework.Messaging</Name>
@@ -123,17 +128,9 @@
       <Project>{71b541ac-2b1d-42aa-8351-4ef95e25f2d9}</Project>
       <Name>Framework.Patterns</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FrameworkLoging\Framework.Loging.csproj">
-      <Project>{4f238481-bb47-48ab-8308-fe16081c82c5}</Project>
-      <Name>Framework.Loging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Framework\Framework.Monitoring\Framework.Monitoring.csproj">
       <Project>{704db737-2f57-4c87-bf9f-27ac244adcb9}</Project>
       <Name>Framework.Monitoring</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Framework\Framework.Patterns\Framework.Service.csproj">
-      <Project>{6ec4ea97-b506-4d27-aea0-537ec3005460}</Project>
-      <Name>Framework.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharedKernell\SharedKernell.csproj">
       <Project>{335796c4-1bed-453c-9121-221e11b6579a}</Project>

@@ -1,8 +1,7 @@
-﻿using Framework.Loging;
-using Framework.Messaging;
-using Framework.Service.Cqrs;
-using Framework.Service.Cqrs.Implementation;
-using SharedKernell;
+﻿using Framework.Messaging;
+using Framework.Monitoring.Logs.Logger;
+using Framework.Patterns.Cqrs;
+using Framework.Patterns.Cqrs.Implementation;
 using SimpleInjector;
 
 namespace WebApi.Config.Inject
@@ -13,8 +12,10 @@ namespace WebApi.Config.Inject
         {
             container.Register<IDependencyResolver, DependencyResolver>(Lifestyle.Singleton);
             container.Register<ICommandDispatcher, CommandDispatcher>(Lifestyle.Transient);
-            container.Register<IApplicationMonitoringLogger, ApplicationMonitoringLogger>(Lifestyle.Scoped);
-            container.Register<IMessagePublisher, KafkaMessagePublisher>(Lifestyle.Scoped);
+            container.Register<IEventLogLogger, EventLogLogger>(Lifestyle.Scoped);
+            container.Register<IMessageQueueLogger, MessageQueueLogger>(Lifestyle.Scoped);
+            container.Register<IFilesLogger, FilesLogger>(Lifestyle.Scoped);
+            container.Register<ILogger, Logger>(Lifestyle.Scoped);
         }
     }
 }

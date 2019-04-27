@@ -1,4 +1,5 @@
-﻿using Framework.Loging;
+﻿using Framework.Monitoring.Logs.Logger;
+using Framework.Monitoring.Logs.Types;
 using Framework.Monitoring.WebApi.Extensions;
 using System;
 using System.Diagnostics;
@@ -11,14 +12,14 @@ namespace Framework.Monitoring.WebApi
 {
     public class LoggingWebApiRequestDelegatingHandler : DelegatingHandler
     {
-        private IApplicationMonitoringLogger _logger;
+        private ILogger _logger;
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             using (GlobalConfiguration.Configuration.DependencyResolver.BeginScope())
             {
                 var stopwatch = StartStopwatch();
-                _logger = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IApplicationMonitoringLogger)) as IApplicationMonitoringLogger;
+                _logger = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ILogger)) as ILogger;
 
                 AddCorrelationIdHeadersToRequest(request);
                 var requestMetadataLog = BuildRequestMetadataLog(request);
@@ -27,8 +28,7 @@ namespace Framework.Monitoring.WebApi
 
                 AddResponseMetadataToLog(ref requestMetadataLog, response, stopwatch.ElapsedMilliseconds);
 
-                SendToLog(requestMetadataLog);
-                await CommitLogs();
+                await CommitLogs(requestMetadataLog);
                 return response;
             }
         }
@@ -54,13 +54,9 @@ namespace Framework.Monitoring.WebApi
             logMetadata.ProcessingTime = elapsedMilliseconds;
         }
 
-        private void SendToLog(ILog log)
+        private Task CommitLogs(ILog log)
         {
-             _logger.EnqueueLog(log);
-        }
-
-        private Task CommitLogs()
-        {
+            _logger.EnqueueLog(log);
             return _logger.CommitLogsAsync();
         }
 

@@ -1,6 +1,6 @@
-﻿using Framework.Service.Cqrs;
-using SimpleInjector;
+﻿using SimpleInjector;
 using System;
+using Framework.Patterns.Cqrs;
 
 namespace WebApi.Config.Inject
 {

@@ -53,9 +53,9 @@
     <Folder Include="Query\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Framework\Framework.Patterns\Framework.Service.csproj">
-      <Project>{6ec4ea97-b506-4d27-aea0-537ec3005460}</Project>
-      <Name>Framework.Service</Name>
+    <ProjectReference Include="..\..\..\Framework.Patterns\Framework.Patterns.csproj">
+      <Project>{71B541AC-2B1D-42AA-8351-4EF95E25F2D9}</Project>
+      <Name>Framework.Patterns</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

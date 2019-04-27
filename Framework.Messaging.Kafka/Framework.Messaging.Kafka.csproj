@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup>
+    <ProjectGuid>0beb062d-9e9d-40cb-a826-82303c024e71</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFramework>net472</TargetFramework>
+    <Company></Company>
+    <Product>Framework.Messaging.Kafka</Product>
+    <Authors>Rafał Grzesik</Authors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
+    <PackageReference Include="Confluent.Kafka" Version="1.0.0-RC3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework.Messaging\Framework.Messaging.csproj" />
+    <ProjectReference Include="..\Framework\Framework.Monitoring\Framework.Monitoring.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+</Project>

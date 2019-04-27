@@ -45,21 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionLog.cs" />
-    <Compile Include="IApplicationMonitoringLogger.cs" />
-    <Compile Include="DomainEventLog.cs" />
-    <Compile Include="ILog.cs" />
-    <Compile Include="Log.cs" />
-    <Compile Include="Extensions\LogExtensions.cs" />
-    <Compile Include="LogType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestMetadataLog.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework.Messaging\Framework.Messaging.csproj">
+      <Project>{54b3b085-14c4-49a1-abe3-e9b935f464cd}</Project>
+      <Name>Framework.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework.Patterns\Framework.Patterns.csproj">
       <Project>{71b541ac-2b1d-42aa-8351-4ef95e25f2d9}</Project>
       <Name>Framework.Patterns</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

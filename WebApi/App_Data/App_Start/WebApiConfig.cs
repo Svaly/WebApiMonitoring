@@ -1,8 +1,8 @@
-﻿using Framework.Monitoring.WebApi;
+﻿using System.Web.Http;
+using Framework.Monitoring.WebApi;
 using Swashbuckle.Application;
-using System.Web.Http;
 
-namespace WebApi
+namespace WebApi.App_Data
 {
     public static class WebApiConfig
     {

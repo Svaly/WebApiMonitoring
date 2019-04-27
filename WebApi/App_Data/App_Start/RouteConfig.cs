@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace WebApi
+namespace WebApi.App_Data
 {
     public class RouteConfig
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Http;
-using Framework.Service.Cqrs;
+using Framework.Patterns.Cqrs;
 
 namespace WebApi.Config
 {

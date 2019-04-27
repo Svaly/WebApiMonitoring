@@ -1,4 +1,4 @@
-﻿using Framework.Service.Cqrs.Implementation;
+﻿using Framework.Patterns.Cqrs.Implementation;
 
 namespace Identity.Handlers.Commands
 {

@@ -1,18 +1,20 @@
-﻿using System;
+﻿using Framework.Monitoring.WebApi.Extensions;
+using System;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Framework.Loging;
-using Framework.Monitoring.WebApi.Extensions;
-using Framework.Service.Cqrs;
+using Framework.Monitoring.Logs;
+using Framework.Monitoring.Logs.Logger;
+using Framework.Monitoring.Logs.Types;
+using Framework.Patterns.Cqrs;
 
 namespace WebApi.Controllers
 {
     public abstract class BaseController : ApiController
     {
         protected readonly ICommandDispatcher _commandDispatcher;
-        private readonly IApplicationMonitoringLogger _logger;
+        private readonly ILogger _logger;
 
-        protected BaseController(ICommandDispatcher commandDispatcher, IApplicationMonitoringLogger logger)
+        protected BaseController(ICommandDispatcher commandDispatcher, ILogger logger)
         {
             _commandDispatcher = commandDispatcher;
             _logger = logger;
@@ -30,13 +32,13 @@ namespace WebApi.Controllers
             catch (Exception e)
             {
                 LogException(e, command);
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
         private void LogException(Exception e, ICommand command)
         {
-            _logger.EnqueueLog(new ExceptionLog(e, command.CorrelationId, command.CausationId, ""));
+            _logger.EnqueueLog(new ExceptionLog(LogLevel.Error, e, command.CorrelationId, command.CausationId, ""));
         }
     }
 }

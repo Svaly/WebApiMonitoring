@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace WebApi
+namespace WebApi.App_Data
 {
     public class FilterConfig
     {

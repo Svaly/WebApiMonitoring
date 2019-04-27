@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Framework.Patterns.Messaging;
 using Newtonsoft.Json;
 
 namespace Framework.Patterns.Extension

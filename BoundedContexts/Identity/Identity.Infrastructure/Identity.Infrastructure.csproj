@@ -51,10 +51,6 @@
       <Project>{71b541ac-2b1d-42aa-8351-4ef95e25f2d9}</Project>
       <Name>Framework.Patterns</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\FrameworkLoging\Framework.Loging.csproj">
-      <Project>{4f238481-bb47-48ab-8308-fe16081c82c5}</Project>
-      <Name>Framework.Loging</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
