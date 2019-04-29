@@ -1,5 +1,8 @@
-﻿using Framework.Messaging;
+﻿using Framework.Monitoring.Logs.Factory;
 using Framework.Monitoring.Logs.Logger;
+using Framework.Monitoring.Logs.Publisher;
+using Framework.Monitoring.Logs.Types;
+using Framework.Patterns.Application;
 using Framework.Patterns.Cqrs;
 using Framework.Patterns.Cqrs.Implementation;
 using SimpleInjector;
@@ -12,10 +15,18 @@ namespace WebApi.Config.Inject
         {
             container.Register<IDependencyResolver, DependencyResolver>(Lifestyle.Singleton);
             container.Register<ICommandDispatcher, CommandDispatcher>(Lifestyle.Transient);
-            container.Register<IEventLogLogger, EventLogLogger>(Lifestyle.Scoped);
-            container.Register<IMessageQueueLogger, MessageQueueLogger>(Lifestyle.Scoped);
-            container.Register<IFilesLogger, FilesLogger>(Lifestyle.Scoped);
+            container.Register<IGlobalConfigurationProvider, GlobalConfigurationProvider>(Lifestyle.Scoped);
+            container.Register<IProcessingScope, ProcessingScope>(Lifestyle.Scoped);
+            container.Register<ILogsQueue, LogsQueue>(Lifestyle.Scoped);
             container.Register<ILogger, Logger>(Lifestyle.Scoped);
+
+            container.Register<IProcessingScopeFactory, ProcessingScopeFactory>(Lifestyle.Scoped);
+            container.Register<IWebRequestProcessingLogFactory, WebRequestProcessingLogFactory>(Lifestyle.Scoped);
+
+            container.Register<IEventLogLogsPublisher, EventLogLogsPublisher>(Lifestyle.Scoped);
+            container.Register<IMessageQueueLogsPublisher, MessageQueueLogsPublisher>(Lifestyle.Scoped);
+            container.Register<IFileLogsPublisher, FileLogsPublisher>(Lifestyle.Scoped);
+            container.Register<ILogsPublisher, LogsPublisher>(Lifestyle.Scoped);
         }
     }
 }

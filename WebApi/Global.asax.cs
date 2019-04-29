@@ -19,12 +19,13 @@ namespace WebApi
 
             RegisterFramework.Register(container);
             RegisterApplicationServices.Register(container);
+            RegisterMessageQueue.Register(container);
 
             // This is an extension method from the simple injector web api integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             container.Verify();
 
-            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
+            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container, DependencyResolverScopeOption.UseAmbientScope);
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

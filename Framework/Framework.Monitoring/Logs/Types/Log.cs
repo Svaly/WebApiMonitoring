@@ -1,19 +1,20 @@
-﻿using System;
+﻿using Framework.Monitoring.Logs.Factory;
+using System;
 
 namespace Framework.Monitoring.Logs.Types
 {
     public class Log : ILog
     {
-        public Log(Guid correlationId, Guid causationId, Type type, string applicationName, string data, LogType logType)
+        public Log(LogLevel logLevel)
         {
             Id = Guid.NewGuid();
-            CorrelationId = correlationId;
-            CausationId = causationId;
             Timestamp = DateTime.Now;
-            Data = data;
-            LogType = logType;
-            ApplicationName = applicationName;
-            Type = type.ToString();
+            LogLevel = logLevel.Value;
+            Type = GetType().ToString();
+            CorrelationId = ExecutionScope.Current.CorrelationId;
+            CausationId = ExecutionScope.Current.CausationId;
+            ProcessingScopeType = ExecutionScope.Current.ProcessingScopeType.Value;
+            ApplicationName = ExecutionScope.ApplicationName;
         }
 
         public Guid Id { get; }
@@ -28,8 +29,8 @@ namespace Framework.Monitoring.Logs.Types
 
         public string ApplicationName { get; }
 
-        public string Data { get; }
+        public string LogLevel { get; }
 
-        public LogType LogType { get; }
+        public string ProcessingScopeType { get; }
     }
 }

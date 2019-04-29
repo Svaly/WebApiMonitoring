@@ -4,12 +4,12 @@ namespace Framework.Patterns.Cqrs
 {
     public interface ICommand
     {
-        void SetChainOfCallsMetadata(Guid correlationId, Guid causationId);
+        Guid CommandId { get; }
 
-         Guid CommandId { get; }
+        //void SetChainOfCallsMetadata(Guid correlationId, Guid causationId);
+
+        // Guid CorrelationId { get; }
         
-         Guid CorrelationId { get; }
-        
-         Guid CausationId { get; }
+        // Guid CausationId { get; }
     }
 }

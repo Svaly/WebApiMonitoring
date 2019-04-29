@@ -5,29 +5,20 @@ using System.Threading.Tasks;
 using Framework.Monitoring.Logs.Types;
 using Newtonsoft.Json;
 
-namespace Framework.Monitoring.Logs.Logger
+namespace Framework.Monitoring.Logs.Publisher
 {
-    public class FilesLogger : IFilesLogger
+    public class FileLogsPublisher : IFileLogsPublisher
     {
         private static readonly ReaderWriterLock locker = new ReaderWriterLock();
-        private readonly Queue<ILog> _logs;
 
-        public FilesLogger()
-        {
-            _logs = new Queue<ILog>();
-        }
-
-        public void EnqueueLog(ILog log)
-        {
-            _logs.Enqueue(log);
-        }
-
-        public Task CommitLogsAsync()
+        public Task CommitLogsAsync(IEnumerable<ILog> logs)
         {
             var tasks = new List<Task>();
 
-            while (_logs.Count > 0)
-                tasks.Add(WriteToFile(_logs.Dequeue()));
+            foreach (var log in logs)
+            {
+                tasks.Add(WriteToFile(log));
+            }
 
             return Task.WhenAll(tasks);
         }

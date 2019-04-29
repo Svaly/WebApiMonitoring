@@ -1,36 +1,20 @@
-﻿using System.Threading.Tasks;
+﻿using Framework.Monitoring.Logs.Publisher;
 using Framework.Monitoring.Logs.Types;
 
 namespace Framework.Monitoring.Logs.Logger
 {
     public sealed class Logger : ILogger
     {
-        private readonly IMessageQueueLogger _messageQueueLogger;
+        private readonly ILogsQueue _logsQueue;
 
-        private readonly IEventLogLogger _eventLogLogger;
-
-        private readonly IFilesLogger _filesLogger;
-
-        public Logger(IEventLogLogger eventLogLogger, IMessageQueueLogger messageQueueLogger, IFilesLogger filesLogger)
+        public Logger(ILogsQueue logsQueue)
         {
-            _eventLogLogger = eventLogLogger;
-            _messageQueueLogger = messageQueueLogger;
-            _filesLogger = filesLogger;
+            _logsQueue = logsQueue;
         }
 
-        public async Task CommitLogsAsync()
+        public void Log(ILog log)
         {
-          await Task.WhenAll(
-              _messageQueueLogger.CommitLogsAsync(),
-              _eventLogLogger.CommitLogsAsync(),
-              _filesLogger.CommitLogsAsync());
-        }
-
-        public void EnqueueLog(ILog log)
-        {
-            _messageQueueLogger.EnqueueLog(log);
-            _eventLogLogger.EnqueueLog(log);
-            _filesLogger.EnqueueLog(log);
+            _logsQueue.Enqueue(log);
         }
     }
 }

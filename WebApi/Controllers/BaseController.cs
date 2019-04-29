@@ -1,11 +1,9 @@
-﻿using Framework.Monitoring.WebApi.Extensions;
+﻿using Framework.Monitoring.Logs.Logger;
+using Framework.Monitoring.Logs.Types;
+using Framework.Patterns.Cqrs;
 using System;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Framework.Monitoring.Logs;
-using Framework.Monitoring.Logs.Logger;
-using Framework.Monitoring.Logs.Types;
-using Framework.Patterns.Cqrs;
 
 namespace WebApi.Controllers
 {
@@ -14,7 +12,9 @@ namespace WebApi.Controllers
         protected readonly ICommandDispatcher _commandDispatcher;
         private readonly ILogger _logger;
 
-        protected BaseController(ICommandDispatcher commandDispatcher, ILogger logger)
+        protected BaseController(
+            ICommandDispatcher commandDispatcher,
+            ILogger logger)
         {
             _commandDispatcher = commandDispatcher;
             _logger = logger;
@@ -22,7 +22,7 @@ namespace WebApi.Controllers
 
         public async Task<IHttpActionResult> HandleCommand<T>(T command) where T : ICommand
         {
-            command.SetChainOfCallsMetadata(Request.GetCorrelationIdHeader(), Request.GetRequestIdHeader());
+           // command.SetChainOfCallsMetadata(Request.GetCorrelationIdHeader(), Request.GetRequestIdHeader());
 
             try
             {
@@ -31,14 +31,14 @@ namespace WebApi.Controllers
             }
             catch (Exception e)
             {
-                LogException(e, command);
+                LogException(e);
                 return InternalServerError(e);
             }
         }
 
-        private void LogException(Exception e, ICommand command)
+        private void LogException(Exception e)
         {
-            _logger.EnqueueLog(new ExceptionLog(LogLevel.Error, e, command.CorrelationId, command.CausationId, ""));
+            _logger.Log(new ExceptionLog(LogLevel.Error, e));
         }
     }
 }

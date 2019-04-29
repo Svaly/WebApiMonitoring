@@ -19,4 +19,7 @@
     <Folder Include="Validation\" />
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
 </Project>

@@ -1,6 +1,5 @@
 ﻿using Confluent.Kafka;
 using Framework.Monitoring.Logs.Logger;
-using Framework.Monitoring.Logs.Types;
 using System;
 using System.Text;
 
@@ -36,22 +35,22 @@ namespace Framework.Messaging.Kafka.Loging
         public void LogException(Exception exception, string messageKey, string message)
         {
           //  var log = new ExceptionLog(LogLevel.Error, exception, );
-            //_logger.EnqueueLog((LogLevel)LogLevel.Error, exception, FormatLogMessage(messageKey, message));
+            //_logsPublisher.EnqueueLog((LogLevel)LogLevel.Error, exception, FormatLogMessage(messageKey, message));
         }
 
         public void LogWarning(Exception exception, string messageKey, string message)
         {
-            //_logger.EnqueueLog((LogLevel)LogLevel.Warn, exception, FormatLogMessage(messageKey, message));
+            //_logsPublisher.EnqueueLog((LogLevel)LogLevel.Warn, exception, FormatLogMessage(messageKey, message));
         }
 
         public void LogWarning(string messageKey, string message)
         {
-            //_logger.EnqueueLog((LogLevel)LogLevel.Warn, FormatLogMessage(messageKey, message));
+            //_logsPublisher.EnqueueLog((LogLevel)LogLevel.Warn, FormatLogMessage(messageKey, message));
         }
 
         public void LogInfo(string messageKey, string message)
         {
-            //_logger.EnqueueLog((LogLevel)LogLevel.Info, FormatLogMessage(messageKey, message));
+            //_logsPublisher.EnqueueLog((LogLevel)LogLevel.Info, FormatLogMessage(messageKey, message));
         }
 
         public void CommitLogs()
@@ -80,11 +79,11 @@ namespace Framework.Messaging.Kafka.Loging
         {
             if (_hasError)
             {
-               // _logger.Log((LogLevel)LogLevel.Error, message);
+               // _logsPublisher.Log((LogLevel)LogLevel.Error, message);
             }
             else
             {
-              //  _logger.Log((LogLevel)LogLevel.Debug, message);
+              //  _logsPublisher.Log((LogLevel)LogLevel.Debug, message);
             }
         }
 

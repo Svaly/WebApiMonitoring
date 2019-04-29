@@ -20,8 +20,8 @@ namespace Framework.Monitoring.Logs.Extensions
                 case ExceptionLog p:
                     return LogType.Exception;
 
-                case RequestMetadataLog p:
-                    return LogType.RequestMetadata;
+                case WebRequestProcessingLog p:
+                    return LogType.WebRequestProcessingLog;
 
                 default:
                     return LogType.Information;

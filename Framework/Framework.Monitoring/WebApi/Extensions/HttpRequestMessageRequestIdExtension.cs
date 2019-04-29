@@ -6,20 +6,20 @@ namespace Framework.Monitoring.WebApi.Extensions
 {
     public static class HttpRequestMessageRequestIdExtension
     {
-        private const string RequestIdHeader = "X-Request-ID";
+        private const string RequestIdHeader = "X-WebRequest-ID";
 
         public static Guid GetRequestIdHeader(this HttpRequestMessage request)
         {
-           request.Headers.TryGetValues(RequestIdHeader, out var results);
-           return results.Select(c => new Guid(c)).FirstOrDefault();       
-        }
+            request.Headers.TryGetValues(RequestIdHeader, out var requestIdHeaders);
+            var requestIdHeader = requestIdHeaders?.SingleOrDefault();
 
-        public static void AddRequestIdHeader(this HttpRequestMessage request, Guid id)
-        {
-            if (!request.Headers.Contains(RequestIdHeader))
+            if (!Guid.TryParse(requestIdHeader, out var id))
             {
+                id = Guid.NewGuid();
                 request.Headers.Add(RequestIdHeader, id.ToString());
             }
+
+            return id;
         }
     }
 }

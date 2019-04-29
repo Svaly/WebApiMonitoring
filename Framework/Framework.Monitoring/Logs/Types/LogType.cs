@@ -8,12 +8,12 @@ namespace Framework.Monitoring.Logs.Types
         private static readonly string _domainEvent = "DomainEvent";
         private static readonly string _information = "Information";
         private static readonly string _exception = "Exception";
-        private static readonly string _requestMetadata = "RequestMetadata";
-        private static readonly string _commandMetadata = "CommandMetadata";
+        private static readonly string _webRequestProcessingLog = "WebRequestProcessingLog";
+        private static readonly string _messagingEventProcessingLog = "MessagingEventProcessingLog";
 
         private static readonly string[] AvailableLogTypes =
         {
-            _domainEvent, _information, _exception, _requestMetadata, _commandMetadata
+            _domainEvent, _information, _exception, _webRequestProcessingLog, _messagingEventProcessingLog
         };
 
         public LogType(string logType)
@@ -23,13 +23,13 @@ namespace Framework.Monitoring.Logs.Types
             Value = logType;
         }
 
+        public static LogType MessagingEventProcessingLog = new LogType(_messagingEventProcessingLog);
+
         public static LogType Information = new LogType(_information);
 
         public static LogType Exception = new LogType(_exception);
 
-        public static LogType RequestMetadata = new LogType(_requestMetadata);
-
-        public static LogType CommandMetadata = new LogType(_commandMetadata);
+        public static LogType WebRequestProcessingLog = new LogType(_webRequestProcessingLog);
 
         public static LogType DomainEvent => new LogType(_domainEvent);
 

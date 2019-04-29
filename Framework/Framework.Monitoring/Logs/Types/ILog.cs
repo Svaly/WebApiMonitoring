@@ -16,8 +16,8 @@ namespace Framework.Monitoring.Logs.Types
 
         string ApplicationName { get; }
 
-        string Data { get; }
+        string LogLevel { get; }
 
-        LogType LogType { get; }
+        string ProcessingScopeType { get; }
     }
 }

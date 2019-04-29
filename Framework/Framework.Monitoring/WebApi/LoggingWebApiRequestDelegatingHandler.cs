@@ -1,7 +1,8 @@
-﻿using Framework.Monitoring.Logs.Logger;
+﻿using Framework.Monitoring.Logs.Factory;
+using Framework.Monitoring.Logs.Logger;
+using Framework.Monitoring.Logs.Publisher;
 using Framework.Monitoring.Logs.Types;
 using Framework.Monitoring.WebApi.Extensions;
-using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
@@ -12,66 +13,40 @@ namespace Framework.Monitoring.WebApi
 {
     public class LoggingWebApiRequestDelegatingHandler : DelegatingHandler
     {
-        private ILogger _logger;
-
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            using (GlobalConfiguration.Configuration.DependencyResolver.BeginScope())
+            using (new ExecutionScope(request))
             {
-                var stopwatch = StartStopwatch();
-                _logger = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ILogger)) as ILogger;
+                var stopwatch = new Stopwatch();
 
-                AddCorrelationIdHeadersToRequest(request);
-                var requestMetadataLog = BuildRequestMetadataLog(request);
+                stopwatch.Start();
                 var response = await base.SendAsync(request, cancellationToken);
                 stopwatch.Stop();
 
-                AddResponseMetadataToLog(ref requestMetadataLog, response, stopwatch.ElapsedMilliseconds);
-
-                await CommitLogs(requestMetadataLog);
+                CommitLogs(CreateLog(request, response, stopwatch.ElapsedMilliseconds));
                 return response;
             }
         }
 
-        private RequestMetadataLog BuildRequestMetadataLog(HttpRequestMessage request)
+        public WebRequestProcessingLog CreateLog(HttpRequestMessage request, HttpResponseMessage response, long executionTime)
         {
-            var requestMetadataLog = new RequestMetadataLog(
-                request.GetCorrelationIdHeader(),
+            return new WebRequestProcessingLog(
                 request.GetRequestIdHeader(),
-                request.GetType(),
                 request.Headers.Host,
-                "",
-                string.Empty,
                 request.Method.Method,
-                request.RequestUri.ToString());
-
-            return requestMetadataLog;
+                request.RequestUri.ToString(),
+                response.StatusCode,
+                executionTime,
+                LogLevel.Info);
         }
 
-        private void AddResponseMetadataToLog(ref RequestMetadataLog logMetadata, HttpResponseMessage response, long elapsedMilliseconds)
+        private void CommitLogs(ILog log)
         {
-            logMetadata.ResponseStatusCode = response.StatusCode;
-            logMetadata.ProcessingTime = elapsedMilliseconds;
-        }
+            var logsPublisher = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ILogsPublisher)) as ILogsPublisher;
+            var logger = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ILogger)) as ILogger;
 
-        private Task CommitLogs(ILog log)
-        {
-            _logger.EnqueueLog(log);
-            return _logger.CommitLogsAsync();
-        }
-
-        private void AddCorrelationIdHeadersToRequest(HttpRequestMessage request)
-        {
-            var requestId = Guid.NewGuid();
-            request.AddRequestIdHeader(requestId);
-            request.AddCorrelationIdHeader(requestId);
-        }
-
-        private Stopwatch StartStopwatch()
-        {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-            return stopwatch;
+            logger.Log(log);
+            logsPublisher.CommitLogsAsync();
         }
     }
 }

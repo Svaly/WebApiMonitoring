@@ -1,13 +1,12 @@
-﻿using System;
-using Framework.Patterns.Extension;
-using Framework.Patterns.Messaging;
+﻿using Framework.Patterns.Messaging;
+using System;
 
 namespace Framework.Monitoring.Logs.Types
 {
     public sealed class DomainEventLog : Log
     {
-        public DomainEventLog(IEvent @event) 
-            : base(@event.CorrelationId, @event.CausationId, @event.GetType(), @event.ApplicationName, @event.ToJson(), LogType.DomainEvent)
+        public DomainEventLog(IEvent @event, LogLevel logLevel)
+            : base(logLevel)
         {
             AggregateId = @event.AggregateId;
             EventId = @event.Id;

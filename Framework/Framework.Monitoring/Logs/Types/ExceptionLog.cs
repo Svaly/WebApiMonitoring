@@ -6,18 +6,9 @@ namespace Framework.Monitoring.Logs.Types
     {
         public ExceptionLog(
             LogLevel logLevel,
-            Exception exception,
-            Guid correlationId,
-            Guid causationId,
-            string applicationName)
-            : base(causationId,
-                correlationId,
-                exception.GetType(),
-                applicationName,
-                exception.ToString(),
-                LogType.Exception)
+            Exception exception)
+            : base(logLevel)
         {
-            LogLevel = logLevel;
             Exception = exception;
             StackTrace = exception.StackTrace;
             InnerException = exception.InnerException;
@@ -31,7 +22,5 @@ namespace Framework.Monitoring.Logs.Types
         public Exception Exception { get; }
 
         public string Message { get; }
-
-        public LogLevel LogLevel { get; }
     }
 }
