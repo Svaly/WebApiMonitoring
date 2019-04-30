@@ -14,7 +14,7 @@ namespace WebApi.Controllers
         {
         }
 
-        [Route()]
+        [Route]
         [HttpPost]
         public async Task<IHttpActionResult> RegisterUser(RegisterUserCommand command)
         {

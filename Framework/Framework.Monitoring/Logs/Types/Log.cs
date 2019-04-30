@@ -1,5 +1,4 @@
-﻿using Framework.Monitoring.Logs.Factory;
-using System;
+﻿using System;
 
 namespace Framework.Monitoring.Logs.Types
 {
@@ -7,30 +6,26 @@ namespace Framework.Monitoring.Logs.Types
     {
         public Log(LogLevel logLevel)
         {
-            Id = Guid.NewGuid();
+            LogId = Guid.NewGuid();
             Timestamp = DateTime.Now;
             LogLevel = logLevel.Value;
-            Type = GetType().ToString();
-            CorrelationId = ExecutionScope.Current.CorrelationId;
-            CausationId = ExecutionScope.Current.CausationId;
-            ProcessingScopeType = ExecutionScope.Current.ProcessingScopeType.Value;
-            ApplicationName = ExecutionScope.ApplicationName;
+            LogType = GetType().ToString();
         }
 
-        public Guid Id { get; }
+        public Guid LogId { get; }
 
-        public Guid CorrelationId { get; }
-
-        public Guid CausationId { get; }
+        public string LogType { get; }
 
         public DateTime Timestamp { get; }
 
-        public string Type { get; }
-
-        public string ApplicationName { get; }
-
         public string LogLevel { get; }
 
-        public string ProcessingScopeType { get; }
+        public Guid CorrelationId { get; set; }
+
+        public Guid CausationId { get; set; }
+
+        public string ApplicationName { get; set; }
+
+        public string ProcessingScope { get; set; }
     }
 }

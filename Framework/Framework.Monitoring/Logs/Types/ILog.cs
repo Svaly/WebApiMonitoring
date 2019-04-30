@@ -4,20 +4,20 @@ namespace Framework.Monitoring.Logs.Types
 {
     public interface ILog
     {
-        Guid Id { get; }
+        Guid LogId { get; }
 
-        Guid CorrelationId { get; }
-
-        Guid CausationId { get; }
+        string LogType { get; }
 
         DateTime Timestamp { get; }
 
-        string Type { get; }
-
-        string ApplicationName { get; }
-
         string LogLevel { get; }
 
-        string ProcessingScopeType { get; }
+        Guid CorrelationId { get; set; }
+
+        Guid CausationId { get; set; }
+
+        string ApplicationName { get; set; }
+
+        string ProcessingScope { get; set; }
     }
 }

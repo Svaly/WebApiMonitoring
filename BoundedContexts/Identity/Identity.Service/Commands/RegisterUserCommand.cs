@@ -4,7 +4,7 @@ namespace Identity.Handlers.Commands
 {
     public sealed class RegisterUserCommand : Command
     {
-        public RegisterUserCommand(string name, string password) 
+        public RegisterUserCommand(string name, string password)
         {
             Name = name;
             Password = password;
@@ -12,6 +12,6 @@ namespace Identity.Handlers.Commands
 
         public string Name { get; }
 
-        public string Password{ get; }
+        public string Password { get; }
     }
 }

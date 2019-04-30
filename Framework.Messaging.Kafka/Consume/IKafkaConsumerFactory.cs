@@ -8,7 +8,7 @@ namespace Framework.Messaging.Kafka.Consume
     {
         IConsumer<string, string> CreateConsumer(
             KafkaConnectionConfigModel connectionConfig,
-            Action<Consumer<string, string>, LogMessage> consumerLogHandler,
-            Action<Consumer<string, string>, Error> consumerErrorHandler);
+            Action<IConsumer<string, string>, LogMessage> consumerLogHandler,
+            Action<IConsumer<string, string>, Error> consumerErrorHandler);
     }
 }

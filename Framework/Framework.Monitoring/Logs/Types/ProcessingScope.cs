@@ -1,20 +1,42 @@
 ﻿using System;
+using System.Linq;
 
 namespace Framework.Monitoring.Logs.Types
 {
-    public sealed class ProcessingScope : IProcessingScope
+    public sealed class ProcessingScope
     {
-        public Guid CorrelationId { get; private set; }
+        private static readonly string _request = "WebRequest";
+        private static readonly string _event = "Event";
 
-        public string ApplicationName { get; private set; }
-
-        public ProcessingScopeType ProcessingScopeType { get; private set; }
-
-        public void SetScope(Guid correlationId, string applicationName, ProcessingScopeType processingScopeType)
+        private static readonly string[] AvailableProcessingScopes =
         {
-            CorrelationId = correlationId;
-            ApplicationName = applicationName;
-            ProcessingScopeType = processingScopeType;
+            _request, _event
+        };
+
+        public ProcessingScope(string processingScope)
+        {
+            Validate(processingScope);
+
+            Value = processingScope;
+        }
+
+        public static ProcessingScope WebRequest => new ProcessingScope(_request);
+
+        public static ProcessingScope Event => new ProcessingScope(_event);
+
+        public string Value { get; }
+
+        private void Validate(string processingScope)
+        {
+            if (string.IsNullOrEmpty(processingScope))
+            {
+                throw new ArgumentNullException(processingScope, "Processing scope cannot be null");
+            }
+
+            if (!AvailableProcessingScopes.Contains(processingScope))
+            {
+                throw new ArgumentException($"Invalid processing scope: {processingScope}");
+            }
         }
     }
 }

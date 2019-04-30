@@ -6,7 +6,7 @@
         [RoutePrefix("api/values")]
         public class ValuesController : ApiController
         {
-            [Route()]
+            [Route]
             [HttpGet]
             public IEnumerable<string> Get()
             {
@@ -20,7 +20,7 @@
                 return "value";
             }
 
-            [Route()]
+            [Route]
             [HttpPost]
             public void Post([FromBody]string value)
             {

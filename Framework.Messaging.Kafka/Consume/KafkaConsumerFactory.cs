@@ -8,8 +8,8 @@ namespace Framework.Messaging.Kafka.Consume
     {
         public IConsumer<string, string> CreateConsumer(
           KafkaConnectionConfigModel connectionConfig,
-          Action<Consumer<string, string>, LogMessage> consumerLogHandler,
-          Action<Consumer<string, string>, Error> consumerErrorHandler)
+          Action<IConsumer<string, string>, LogMessage> consumerLogHandler,
+          Action<IConsumer<string, string>, Error> consumerErrorHandler)
         {
             var consumerConfig = CreateConsumerConfig(connectionConfig);
             ConfigureSsl(consumerConfig, connectionConfig);
@@ -51,8 +51,8 @@ namespace Framework.Messaging.Kafka.Consume
 
         private ConsumerBuilder<string, string> CreateConsumerBuilder(
             ConsumerConfig consumerConfig,
-            Action<Consumer<string, string>, LogMessage> consumerLogHandler,
-            Action<Consumer<string, string>, Error> consumerErrorHandler)
+            Action<IConsumer<string, string>, LogMessage> consumerLogHandler,
+            Action<IConsumer<string, string>, Error> consumerErrorHandler)
         {
             var consumerBuilder = new ConsumerBuilder<string, string>(consumerConfig);
             consumerBuilder.SetLogHandler(consumerLogHandler);

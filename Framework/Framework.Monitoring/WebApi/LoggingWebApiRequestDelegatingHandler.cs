@@ -1,13 +1,11 @@
-﻿using Framework.Monitoring.Logs.Factory;
-using Framework.Monitoring.Logs.Logger;
-using Framework.Monitoring.Logs.Publisher;
+﻿using Framework.Monitoring.Logs.Logger;
 using Framework.Monitoring.Logs.Types;
 using Framework.Monitoring.WebApi.Extensions;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Http;
+using Framework.Monitoring.Logs.Publisher;
 
 namespace Framework.Monitoring.WebApi
 {
@@ -15,20 +13,24 @@ namespace Framework.Monitoring.WebApi
     {
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            using (new ExecutionScope(request))
+            using (var scope = new ExecutionScope(request))
             {
                 var stopwatch = new Stopwatch();
+                var logger = scope.ServiceLocatorGetService<ILogger>() as ILogger;
+                var logsPublisher = scope.ServiceLocatorGetService<ILogsPublisher>() as ILogsPublisher;
 
                 stopwatch.Start();
                 var response = await base.SendAsync(request, cancellationToken);
                 stopwatch.Stop();
 
-                CommitLogs(CreateLog(request, response, stopwatch.ElapsedMilliseconds));
+                logger.Log(CreateLog(request, response, stopwatch.ElapsedMilliseconds));
+
+                await logsPublisher.CommitLogsAsync();
                 return response;
             }
         }
 
-        public WebRequestProcessingLog CreateLog(HttpRequestMessage request, HttpResponseMessage response, long executionTime)
+        private WebRequestProcessingLog CreateLog(HttpRequestMessage request, HttpResponseMessage response, long executionTime)
         {
             return new WebRequestProcessingLog(
                 request.GetRequestIdHeader(),
@@ -38,15 +40,6 @@ namespace Framework.Monitoring.WebApi
                 response.StatusCode,
                 executionTime,
                 LogLevel.Info);
-        }
-
-        private void CommitLogs(ILog log)
-        {
-            var logsPublisher = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ILogsPublisher)) as ILogsPublisher;
-            var logger = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ILogger)) as ILogger;
-
-            logger.Log(log);
-            logsPublisher.CommitLogsAsync();
         }
     }
 }
