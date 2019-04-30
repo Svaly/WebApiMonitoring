@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Framework.Service.Cqrs.Implementation
+namespace Framework.Patterns.Cqrs.Implementation
 {
     public sealed class CommandDispatcher : ICommandDispatcher
     {

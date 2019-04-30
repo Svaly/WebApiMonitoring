@@ -1,9 +1,9 @@
-﻿using Framework.Monitoring.Logs.Logger;
-using Framework.Monitoring.Logs.Publisher;
-using Framework.Monitoring.Logs.Types;
+﻿using Framework.Logs.Logger;
+using Framework.Monitoring;
 using Framework.Patterns.Application;
 using Framework.Patterns.Cqrs;
 using Framework.Patterns.Cqrs.Implementation;
+using Framework.Patterns.Loging;
 using SimpleInjector;
 
 namespace WebApi.Config.Inject
@@ -19,6 +19,7 @@ namespace WebApi.Config.Inject
             container.Register<ILogger, Logger>(Lifestyle.Scoped);
 
             container.Register<IExecutionScopeMetadata, ExecutionScopeMetadata>(Lifestyle.Scoped);
+            container.Register<IMonitoringLogger, MonitoringLogger>(Lifestyle.Scoped);
 
             container.Register<IEventLogLogsPublisher, EventLogLogsPublisher>(Lifestyle.Scoped);
             container.Register<IMessageQueueLogsPublisher, MessageQueueLogsPublisher>(Lifestyle.Scoped);

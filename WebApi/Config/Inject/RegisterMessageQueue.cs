@@ -1,10 +1,8 @@
 ﻿using Framework.Messaging.Converters;
 using Framework.Messaging.Kafka.Configuration;
-using Framework.Messaging.Kafka.Consume;
-using Framework.Messaging.Kafka.Loging;
+using Framework.Messaging.Kafka.Logs;
 using Framework.Messaging.Kafka.Publish;
 using Framework.Messaging.Publish;
-using Framework.Monitoring.Logs.Publisher;
 using SimpleInjector;
 
 namespace WebApi.Config.Inject

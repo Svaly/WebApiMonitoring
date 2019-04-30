@@ -1,6 +1,5 @@
-﻿using Framework.Monitoring.Logs.Logger;
-using Framework.Monitoring.Logs.Types;
-using Framework.Patterns.Cqrs;
+﻿using Framework.Patterns.Cqrs;
+using Framework.Patterns.Loging;
 using System;
 using System.Threading.Tasks;
 using System.Web.Http;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Framework.Service.Cqrs
+namespace Framework.Patterns.Cqrs
 {
     public interface IDependencyResolver
     {

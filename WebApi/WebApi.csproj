@@ -116,21 +116,25 @@
       <Project>{a4890eaf-9fd0-406e-ac42-ebeb9088c299}</Project>
       <Name>Identity.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework.Messaging.Kafka\Framework.Messaging.Kafka.csproj">
-      <Project>{0BEB062D-9E9D-40CB-A826-82303C024E71}</Project>
+    <ProjectReference Include="..\Framework\Framework.Logs\Framework.Logs.csproj">
+      <Project>{1F1D31DF-9086-4C45-B0D2-D7BE847C4649}</Project>
+      <Name>Framework.Logs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.Messaging.Kafka\Framework.Messaging.Kafka.csproj">
+      <Project>{0beb062d-9e9d-40cb-a826-82303c024e71}</Project>
       <Name>Framework.Messaging.Kafka</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework.Messaging\Framework.Messaging.csproj">
+    <ProjectReference Include="..\Framework\Framework.Messaging\Framework.Messaging.csproj">
       <Project>{54b3b085-14c4-49a1-abe3-e9b935f464cd}</Project>
       <Name>Framework.Messaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Framework.Patterns\Framework.Patterns.csproj">
-      <Project>{71b541ac-2b1d-42aa-8351-4ef95e25f2d9}</Project>
-      <Name>Framework.Patterns</Name>
     </ProjectReference>
     <ProjectReference Include="..\Framework\Framework.Monitoring\Framework.Monitoring.csproj">
       <Project>{704db737-2f57-4c87-bf9f-27ac244adcb9}</Project>
       <Name>Framework.Monitoring</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.Patterns\Framework.Patterns.csproj">
+      <Project>{71b541ac-2b1d-42aa-8351-4ef95e25f2d9}</Project>
+      <Name>Framework.Patterns</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharedKernell\SharedKernell.csproj">
       <Project>{335796c4-1bed-453c-9121-221e11b6579a}</Project>
