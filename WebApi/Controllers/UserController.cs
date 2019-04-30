@@ -1,5 +1,5 @@
-﻿using Framework.Patterns.Cqrs;
-using Framework.Patterns.Loging;
+﻿using Framework.Monitoring;
+using Framework.Patterns.Cqrs;
 using Identity.Handlers.Commands;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -9,7 +9,7 @@ namespace WebApi.Controllers
     [RoutePrefix("api/user")]
     public class UserController : BaseController
     {
-        public UserController(ICommandDispatcher commandDispatcher, ILogger logger)
+        public UserController(ICommandDispatcher commandDispatcher, IMonitoringLogger logger)
             : base(commandDispatcher, logger)
         {
         }

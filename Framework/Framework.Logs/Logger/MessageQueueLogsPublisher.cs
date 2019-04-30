@@ -12,9 +12,11 @@ namespace Framework.Logs.Logger
         private readonly IObjectSerializer _serializer;
 
         public MessageQueueLogsPublisher(
-            IMessageQueuePublisher messagePublisher)
+            IMessageQueuePublisher messagePublisher,
+            IObjectSerializer serializer)
         {
             _messagePublisher = messagePublisher;
+            _serializer = serializer;
         }
 
         public Task CommitLogAsync(ILog log)
