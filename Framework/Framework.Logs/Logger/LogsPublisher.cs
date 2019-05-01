@@ -23,7 +23,7 @@ namespace Framework.Logs.Logger
 
         public async Task CommitLogsAsync()
         {
-          while (_logsQueue.Count > 0)
+          while (_logsQueue.HasEvents)
           {
               if (_logsQueue.TryDequeue(out ILog log))
               {

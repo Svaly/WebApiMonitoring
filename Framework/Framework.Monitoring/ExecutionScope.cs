@@ -1,48 +1,40 @@
 ﻿using Framework.Monitoring.Extensions;
-using System;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Dependencies;
 using Framework.Patterns.Application;
 using Framework.Patterns.Messaging;
+using System;
+using System.Net.Http;
 
 namespace Framework.Monitoring
 {
-    public sealed class ExecutionScope : IDisposable
+    public sealed class ExecutionScope : IExecutionScope
     {
-        private readonly IDependencyScope _dependencyScope;
+        private readonly IExecutionScopeMetadata _executionScopeMetadata;
+        private readonly IGlobalConfigurationProvider _globalConfigurationProvider;
 
-        public ExecutionScope(HttpRequestMessage request)
-            : this(ProcessingScope.WebRequest, request.GetRequestIdHeader(), request.GetCorrelationIdHeader())
+        public ExecutionScope(
+            IExecutionScopeMetadata executionScopeMetadata,
+            IGlobalConfigurationProvider globalConfigurationProvider)
         {
+            _executionScopeMetadata = executionScopeMetadata;
+            _globalConfigurationProvider = globalConfigurationProvider;
         }
 
-        public ExecutionScope(IEvent @event)
-            : this(ProcessingScope.Event, @event.Id, @event.CorrelationId)
+        public void SetUpMetadata(HttpRequestMessage request)
         {
+            SetUpMetadata(ProcessingScope.WebRequest, request.GetRequestIdHeader(), request.GetCorrelationIdHeader());
         }
 
-        private ExecutionScope(ProcessingScope processingScope, Guid causationId, Guid correlationId)
+        public void SetUpMetadata(IEvent @event)
         {
-            _dependencyScope = GlobalConfiguration.Configuration.DependencyResolver.BeginScope();
-            SetUpMetadata(processingScope, causationId, correlationId);
-        }
-
-        public object ServiceLocatorGetService<T>() => _dependencyScope.GetService(typeof(T));
-
-        public void Dispose()
-        {
-            _dependencyScope.Dispose();
+            SetUpMetadata(ProcessingScope.Event, @event.Id, @event.CorrelationId);
         }
 
         private void SetUpMetadata(ProcessingScope processingScope, Guid causationId, Guid correlationId)
         {
-            var metadata = ServiceLocatorGetService<IExecutionScopeMetadata>() as IExecutionScopeMetadata;
-            var globalConfig = ServiceLocatorGetService<IGlobalConfigurationProvider>() as IGlobalConfigurationProvider;
-            metadata.CausationId = causationId;
-            metadata.CorrelationId = correlationId;
-            metadata.ProcessingScope = processingScope;
-            metadata.ApplicationName = globalConfig.Configuration.ApplicationName;
+            _executionScopeMetadata.CausationId = causationId;
+            _executionScopeMetadata.CorrelationId = correlationId;
+            _executionScopeMetadata.ProcessingScope = processingScope;
+            _executionScopeMetadata.ApplicationName = _globalConfigurationProvider.Configuration.ApplicationName;
         }
     }
 }

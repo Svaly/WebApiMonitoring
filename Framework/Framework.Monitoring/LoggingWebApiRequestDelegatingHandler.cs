@@ -10,34 +10,40 @@ namespace Framework.Monitoring
 {
     public class LoggingWebApiRequestDelegatingHandler : DelegatingHandler
     {
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        private readonly IExecutionScope _executionScope;
+        private readonly IMonitoringLogger _logger;
+        private readonly ILogsPublisher _logsPublisher;
+        private readonly Stopwatch _stopwatch;
+
+        public LoggingWebApiRequestDelegatingHandler(ILogsPublisher logsPublisher, IMonitoringLogger logger, IExecutionScope executionScope)
         {
-            using (var scope = new ExecutionScope(request))
-            {
-                var stopwatch = new Stopwatch();
-                var logger = scope.ServiceLocatorGetService<IMonitoringLogger>() as ILogger;
-                var logsPublisher = scope.ServiceLocatorGetService<ILogsPublisher>() as ILogsPublisher;
-
-                stopwatch.Start();
-                var response = await base.SendAsync(request, cancellationToken);
-                stopwatch.Stop();
-
-                logger.Log(CreateLog(request, response, stopwatch.ElapsedMilliseconds));
-
-                logsPublisher.CommitLogsAsync();
-                return response;
-            }
+            _logsPublisher = logsPublisher;
+            _logger = logger;
+            _executionScope = executionScope;
+            _stopwatch = new Stopwatch();
+            _stopwatch.Start();
         }
 
-        private WebRequestProcessingLog CreateLog(HttpRequestMessage request, HttpResponseMessage response, long executionTime)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+                _executionScope.SetUpMetadata(request);
+                var response = await base.SendAsync(request, cancellationToken);
+                _logger.Log(CreateLog(request, response));
+                _logsPublisher.CommitLogsAsync();
+                return response;
+        }
+
+        private WebRequestProcessingLog CreateLog(HttpRequestMessage request, HttpResponseMessage response)
+        {
+            _stopwatch.Stop();
+
             return new WebRequestProcessingLog(
                 request.GetRequestIdHeader(),
                 request.Headers.Host,
                 request.Method.Method,
                 request.RequestUri.ToString(),
                 response.StatusCode,
-                executionTime,
+                _stopwatch.ElapsedMilliseconds,
                 LogLevel.Info);
         }
     }

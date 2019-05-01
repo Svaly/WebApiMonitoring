@@ -4,6 +4,6 @@ namespace Framework.Messaging.Consume
 {
     public interface IEventRoutingEventsMapping
     {
-        Event GetEvent(string routingKey, string message);
+        IEvent GetEvent(string routingKey, string message);
     }
 }

@@ -4,7 +4,7 @@ namespace Framework.Logs.Logger
 {
     public interface ILogsQueue
     {
-        int Count { get; }
+        bool HasEvents { get; }
 
         void Enqueue(ILog log);
 

@@ -1,27 +1,10 @@
-﻿using System.Collections.Concurrent;
-using Framework.Patterns.Loging;
+﻿using Framework.Patterns.Loging;
+using System.Collections.Concurrent;
 
 namespace Framework.Logs.Logger
 {
-    public sealed class LogsQueue : ILogsQueue
+    public sealed class LogsQueue : ConcurrentQueue<ILog>, ILogsQueue
     {
-        private readonly ConcurrentQueue<ILog> _logs;
-
-        public LogsQueue()
-        {
-            _logs = new ConcurrentQueue<ILog>();
-        }
-
-        public int Count => _logs.Count;
-
-        public void Enqueue(ILog log)
-        {
-            _logs.Enqueue(log);
-        }
-
-        public bool TryDequeue(out ILog log)
-        {
-            return _logs.TryDequeue(out log);
-        }
+        public bool HasEvents => Count > 0;
     }
 }

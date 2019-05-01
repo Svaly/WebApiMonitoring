@@ -23,8 +23,6 @@ namespace WebApi.Controllers
         public async Task<IHttpActionResult> HandleCommand<T>(T command)
             where T : ICommand
         {
-           // command.SetChainOfCallsMetadata(Request.GetCorrelationIdHeader(), Request.GetRequestIdHeader());
-
             try
             {
                 await CommandDispatcher.DispatchAsync(command);

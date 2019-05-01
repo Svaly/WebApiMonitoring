@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Framework.Messaging.Kafka.Configuration;
 using Framework.Messaging.Kafka.Consume;
+using Framework.Messaging.Kafka.Logs;
 
 namespace Framework.Messaging.Kafka
 {

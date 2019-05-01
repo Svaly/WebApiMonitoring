@@ -17,4 +17,7 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Framework.Patterns\Framework.Patterns.csproj" />
+  </ItemGroup>
 </Project>

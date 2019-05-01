@@ -1,8 +1,8 @@
 ﻿using Framework.Monitoring;
 using Framework.Patterns.Cqrs;
-using Identity.Handlers.Commands;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Identity.Service.Commands;
 
 namespace WebApi.Controllers
 {

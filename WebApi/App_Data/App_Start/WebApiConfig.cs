@@ -11,8 +11,6 @@ namespace WebApi.App_Data
             // Web API configuration and services
             config.EnableSwagger(c => c.SingleApiVersion("v1", "WebApi")).EnableSwaggerUi();
 
-            config.MessageHandlers.Add(new LoggingWebApiRequestDelegatingHandler());
-
             // Web API routes
             config.MapHttpAttributeRoutes();
         }

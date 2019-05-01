@@ -54,13 +54,20 @@
     <Compile Include="App_Data\App_Start\FilterConfig.cs" />
     <Compile Include="App_Data\App_Start\RouteConfig.cs" />
     <Compile Include="App_Data\App_Start\WebApiConfig.cs" />
-    <Compile Include="Config\DependencyResolver.cs" />
+    <Compile Include="Config\DelegatingHandlerProxy.cs" />
+    <Compile Include="Config\SimpleInjectorDependencyResolver.cs" />
     <Compile Include="Config\Inject\RegisterApplicationServices.cs" />
     <Compile Include="Config\Inject\RegisterMessageQueue.cs" />
     <Compile Include="Config\Inject\RegisterFramework.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Messaging\EventDispatcherProxy.cs" />
+    <Compile Include="Messaging\EventRoutingEventsMapping.cs" />
+    <Compile Include="Messaging\EventRoutingEventsMappingProvider.cs" />
+    <Compile Include="Messaging\KafkaLogsMessagesHandler.cs" />
+    <Compile Include="Messaging\KafkaDomainMessagesHandler.cs" />
+    <Compile Include="Messaging\KafkaMessageQueueConsumer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

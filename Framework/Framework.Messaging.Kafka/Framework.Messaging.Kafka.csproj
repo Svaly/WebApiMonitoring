@@ -18,7 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework.Messaging\Framework.Messaging.csproj" />
-    <ProjectReference Include="..\Framework\Framework.Monitoring\Framework.WebApi.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration" />

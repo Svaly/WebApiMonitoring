@@ -1,6 +1,6 @@
 ﻿using Framework.Patterns.Cqrs.Implementation;
 
-namespace Identity.Handlers.Commands
+namespace Identity.Service.Commands
 {
     public sealed class RegisterUserCommand : Command
     {
