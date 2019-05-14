@@ -1,8 +1,6 @@
-﻿using Framework.Patterns.Cqrs.Implementation;
-
-namespace Identity.Service.Commands
+﻿namespace Identity.Service.Contracts.Command
 {
-    public sealed class RegisterUserCommand : Command
+    public sealed class RegisterUserCommand : Framework.Patterns.Cqrs.Implementation.Command
     {
         public RegisterUserCommand(string name, string password)
         {

@@ -4,11 +4,11 @@ namespace Framework.Patterns.Messaging
 {
     public interface IEvent
     {
-        Guid Id { get; }
+        Guid EventId { get; }
 
         Guid AggregateId { get; }
 
-        Guid? UserId { get; }
+        Guid? CausedById { get; }
 
         long AggregateVersion { get; }
 

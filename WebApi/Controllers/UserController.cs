@@ -2,7 +2,7 @@
 using Framework.Patterns.Cqrs;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Identity.Service.Commands;
+using Identity.Service.Contracts.Command;
 
 namespace WebApi.Controllers
 {

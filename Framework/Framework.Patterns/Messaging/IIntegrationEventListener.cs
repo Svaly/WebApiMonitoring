@@ -1,7 +1,10 @@
-﻿namespace Framework.Patterns.Messaging
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Framework.Patterns.Messaging
 {
     public interface IIntegrationEventListener
     {
-        void ListenToAllEnabledConnections();
+        ICollection<Task> ListenToAllEnabledConnections();
     }
 }

@@ -1,10 +1,11 @@
 ﻿using Confluent.Kafka;
 using Framework.Messaging.Kafka.Configuration;
+using Framework.Messaging.Kafka.Extensions;
 using Framework.Messaging.Kafka.Logs;
+using Framework.Patterns.Loging;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Framework.Messaging.Kafka.Extensions;
 
 namespace Framework.Messaging.Kafka.Consume
 {
@@ -12,11 +13,13 @@ namespace Framework.Messaging.Kafka.Consume
     {
         private readonly IKafkaConsumerFactory _kafkaConsumerFactory;
         private readonly IKafkaLogger _kafkaLogger;
+        private readonly ILogsPublisher _logsPublisher;
 
-        public KafkaConsumer(IKafkaConsumerFactory kafkaConsumerFactory, IKafkaLogger kafkaLogger)
+        public KafkaConsumer(IKafkaConsumerFactory kafkaConsumerFactory, IKafkaLogger kafkaLogger, ILogsPublisher logsPublisher)
         {
             _kafkaConsumerFactory = kafkaConsumerFactory;
             _kafkaLogger = kafkaLogger;
+            _logsPublisher = logsPublisher;
         }
 
         public void ListenInfiniteLoop(KafkaConnectionConfigModel connectionConfig, IKafkaConsumerMessageHandler kafkaConsumerMessageHandler)
@@ -32,6 +35,7 @@ namespace Framework.Messaging.Kafka.Consume
                     ProcessMessage(kafkaConsumerMessageHandler, consumeResult.ToKeyValuePair(), connectionConfig.RetryCount, connectionConfig.ConnectionName);
                     CommitResultToBroker(consumer, consumeResult);
                     _kafkaLogger.CommitLogs(KafkaLogType.Consume, $"Kafka consume failed after {connectionConfig.RetryCount} retries");
+                    _logsPublisher.CommitLogsAsync();
                 }
             }
         }

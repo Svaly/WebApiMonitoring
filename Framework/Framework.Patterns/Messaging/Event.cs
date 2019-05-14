@@ -4,34 +4,29 @@ namespace Framework.Patterns.Messaging
 {
     public class Event : IEvent
     {
-        public Event(Guid aggregateId, Guid? userId, long aggregateVersion, long eventVersion, Guid correlationId, Guid causationId, string applicationName)
+        public Event(Guid aggregateId, Guid? causedById)
         {
             AggregateId = aggregateId;
-            UserId = userId;
-            AggregateVersion = aggregateVersion;
-            EventVersion = eventVersion;
-            CorrelationId = correlationId;
-            CausationId = causationId;
-            ApplicationName = applicationName;
+            CausedById = causedById;
             When = DateTime.Now;
-            Id = Guid.NewGuid();
+            EventId = Guid.NewGuid();
         }
 
-        public Guid Id { get; }
+        public Guid EventId { get; }
 
         public Guid AggregateId { get; }
 
-        public Guid? UserId { get; }
+        public Guid? CausedById { get; }
 
-        public long AggregateVersion { get; }
+        public long AggregateVersion { get; set; }
 
-        public long EventVersion { get; }
+        public long EventVersion { get; set; }
 
-        public Guid CorrelationId { get; }
+        public Guid CorrelationId { get; set; }
 
-        public Guid CausationId { get; }
+        public Guid CausationId { get; set; }
 
-        public string ApplicationName { get; }
+        public string ApplicationName { get; set; }
 
         public DateTime When { get; }
     }

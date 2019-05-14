@@ -1,6 +1,8 @@
-﻿namespace Framework.Messaging.Kafka
+﻿using Framework.Patterns.Messaging;
+
+namespace Framework.Messaging.Kafka
 {
-    public interface IKafkaIntegrationEventConsumer : IIntegrationEventConsumer
+    public interface IKafkaIntegrationEventConsumer : IIntegrationEventListener
     {
     }
 }

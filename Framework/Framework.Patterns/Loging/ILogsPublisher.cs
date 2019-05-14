@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Framework.Logs.Logger
+namespace Framework.Patterns.Loging
 {
     public interface ILogsPublisher
     {

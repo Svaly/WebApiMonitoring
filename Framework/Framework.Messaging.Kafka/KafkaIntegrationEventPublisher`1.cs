@@ -2,9 +2,9 @@ using Framework.Messaging.Converters;
 using Framework.Messaging.Kafka.Publish;
 using Framework.Messaging.Publish;
 using Framework.Patterns;
+using Framework.Patterns.Messaging;
 using System.Collections.Generic;
 using System.Linq;
-using Framework.Patterns.Messaging;
 
 namespace Framework.Messaging.Kafka
 {

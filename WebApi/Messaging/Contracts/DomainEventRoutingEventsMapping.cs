@@ -4,13 +4,13 @@ using Framework.Messaging.Converters;
 using Framework.Patterns.Messaging;
 using Identity.Domain.Events;
 
-namespace WebApi.Messaging
+namespace WebApi.Messaging.Contracts
 {
-    public class EventRoutingEventsMapping : IEventRoutingEventsMapping
+    public class DomainEventRoutingEventsMapping : IEventRoutingEventsMapping
     {
         private readonly IObjectDeserializer _objectDeserializer;
 
-        public EventRoutingEventsMapping(IObjectDeserializer objectDeserializer)
+        public DomainEventRoutingEventsMapping(IObjectDeserializer objectDeserializer)
         {
             _objectDeserializer = objectDeserializer;
         }
@@ -20,7 +20,7 @@ namespace WebApi.Messaging
             switch (routingKey)
             {
                 case "User.Created":
-                    return _objectDeserializer.Deserialize<NewUserEvent>(message);
+                    return _objectDeserializer.Deserialize<UserCreatedEvent>(message);
                 default:
                     throw new ArgumentException($"No type binding available for given routing key {routingKey}");
             }

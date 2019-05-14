@@ -12,12 +12,20 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="QueryHandler - Copy\**" />
+    <EmbeddedResource Remove="QueryHandler - Copy\**" />
+    <None Remove="QueryHandler - Copy\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Framework.Messaging\Framework.Messaging.csproj" />
     <ProjectReference Include="..\..\..\Framework\Framework.Patterns\Framework.Patterns.csproj" />
+    <ProjectReference Include="..\Identity.Infrastructure\Identity.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Handlers\Event\Internal\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 </Project>

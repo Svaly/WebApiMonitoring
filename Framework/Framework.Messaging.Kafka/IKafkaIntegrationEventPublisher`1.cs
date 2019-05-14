@@ -1,4 +1,5 @@
 ﻿using Framework.Patterns;
+using Framework.Patterns.Messaging;
 
 namespace Framework.Messaging.Kafka
 {

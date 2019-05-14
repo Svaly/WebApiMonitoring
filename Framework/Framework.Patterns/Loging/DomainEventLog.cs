@@ -1,5 +1,5 @@
-﻿using System;
-using Framework.Patterns.Messaging;
+﻿using Framework.Patterns.Messaging;
+using System;
 
 namespace Framework.Patterns.Loging
 {
@@ -9,8 +9,8 @@ namespace Framework.Patterns.Loging
             : base(logLevel)
         {
             AggregateId = @event.AggregateId;
-            EventId = @event.Id;
-            UserId = @event.UserId;
+            EventId = @event.EventId;
+            UserId = @event.CausedById;
             AggregateVersion = @event.AggregateVersion;
             EventVersion = @event.EventVersion;
         }

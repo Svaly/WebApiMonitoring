@@ -35,10 +35,10 @@ namespace WebApi.Messaging
             }));
         }
 
-        private static IKafkaConsumer CreateConsumer()
-        {
-            return new KafkaConsumer(new KafkaConsumerFactory(), new KafkaLogger(new Logger(new LogsQueue())));
-        }
+        //private static IKafkaConsumer CreateConsumer()
+        //{
+        ////    return new KafkaConsumer(new KafkaConsumerFactory(), new KafkaLogger(new Logger(new LogsQueue())), new LogsPublisher(new));
+        //}
 
     }
 }

@@ -26,7 +26,7 @@ namespace Framework.Monitoring
 
         public void SetUpMetadata(IEvent @event)
         {
-            SetUpMetadata(ProcessingScope.Event, @event.Id, @event.CorrelationId);
+            SetUpMetadata(ProcessingScope.Event, @event.EventId, @event.CorrelationId);
         }
 
         private void SetUpMetadata(ProcessingScope processingScope, Guid causationId, Guid correlationId)

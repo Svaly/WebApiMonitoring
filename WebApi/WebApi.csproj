@@ -62,8 +62,9 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Messaging\DefaultPublishConnectionNameProvider.cs" />
     <Compile Include="Messaging\EventDispatcherProxy.cs" />
-    <Compile Include="Messaging\EventRoutingEventsMapping.cs" />
+    <Compile Include="Messaging\Contracts\DomainEventRoutingEventsMapping.cs" />
     <Compile Include="Messaging\EventRoutingEventsMappingProvider.cs" />
     <Compile Include="Messaging\KafkaLogsMessagesHandler.cs" />
     <Compile Include="Messaging\KafkaDomainMessagesHandler.cs" />

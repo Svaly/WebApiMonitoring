@@ -7,6 +7,7 @@ using Framework.Messaging.Kafka.Publish;
 using Framework.Messaging.Publish;
 using SimpleInjector;
 using WebApi.Messaging;
+using WebApi.Messaging.Contracts;
 
 namespace WebApi.Config.Inject
 {
@@ -25,9 +26,11 @@ namespace WebApi.Config.Inject
             container.Register<IObjectDeserializer, ObjectDeserializer>(Lifestyle.Scoped);
 
             container.Register<IEventRoutingEventsMappingProvider, EventRoutingEventsMappingProvider>(Lifestyle.Scoped);
-            container.Register<IEventRoutingEventsMapping, EventRoutingEventsMapping>(Lifestyle.Scoped);
             container.Register<KafkaDomainMessagesHandler>(Lifestyle.Scoped);
             container.Register<KafkaLogsMessagesHandler>(Lifestyle.Scoped);
+
+            container.Register<IDefaultPublishConnectionNameProvider, DefaultPublishConnectionNameProvider>(Lifestyle.Scoped);
+            container.Register<IEventRoutingEventsMapping, DomainEventRoutingEventsMapping>(Lifestyle.Scoped);
         }
     }
 }

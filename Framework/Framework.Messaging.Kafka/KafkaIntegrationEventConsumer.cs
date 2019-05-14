@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Framework.Messaging.Kafka.Configuration;
+﻿using Framework.Messaging.Kafka.Configuration;
 using Framework.Messaging.Kafka.Consume;
-using Framework.Messaging.Kafka.Logs;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Framework.Messaging.Kafka
 {

@@ -7,9 +7,12 @@ namespace Framework.Patterns.Application
         [ConfigurationProperty("applicationName", IsRequired = true, IsKey = true)]
         public string ApplicationName => (string)this["applicationName"];
 
+        [ConfigurationProperty("defaultPublishConnectionName", IsRequired = true, IsKey = false)]
+        public string DefaultPublishConnectionName => (string)this["defaultPublishConnectionName"];
+
         public GlobalConfigurationModel ToModel()
         {
-            return new GlobalConfigurationModel(ApplicationName);
+            return new GlobalConfigurationModel(ApplicationName, DefaultPublishConnectionName);
         }
     }
 }
