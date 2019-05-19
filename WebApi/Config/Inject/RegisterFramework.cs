@@ -21,7 +21,6 @@ namespace WebApi.Config.Inject
             container.Register<ICommandDispatcher, CommandDispatcher>(Lifestyle.Transient);
 
             container.Register<IExecutionScope, ExecutionScope>(Lifestyle.Scoped);
-            container.Register<IExecutionScopeMetadata, ExecutionScopeMetadata>(Lifestyle.Scoped);
             container.Register<IMonitoringLogger, MonitoringLogger>(Lifestyle.Scoped);
 
             container.Register<ILogsQueue, LogsQueue>(Lifestyle.Scoped);

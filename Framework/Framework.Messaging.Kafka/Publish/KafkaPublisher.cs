@@ -26,26 +26,7 @@ namespace Framework.Messaging.Kafka.Publish
             _kafkaConfigurationProvider = kafkaConfigurationProvider;
         }
 
-        public async Task PublishAsync(string connectionName, KeyValuePair<string, string> message)
-        {
-            Guard.NotNull(() => connectionName, connectionName);
-            Guard.NotNull(() => message, message);
-
-            if (!ValidateConnectionConfig(connectionName))
-            {
-                return;
-            }
-
-            using (var producer = CreateProducer())
-            {
-                while (!await ProduceMessages(new[] { message }, producer))
-                {
-                    ChangePartitionNumber();
-                }
-
-                producer.Flush(TimeSpan.FromSeconds(10));
-            }
-        }
+        public async Task PublishAsync(string connectionName, KeyValuePair<string, string> message) => await PublishAsync(connectionName, new[] { message });
 
         public async Task PublishAsync(string connectionName, IEnumerable<KeyValuePair<string, string>> messages)
         {
@@ -59,9 +40,9 @@ namespace Framework.Messaging.Kafka.Publish
 
             using (var producer = CreateProducer())
             {
-                while (!await ProduceMessages(messages, producer))
+                while (!await ProduceMessages(messages, producer) && _topicPartitionNumber < _connectionConfig.PartitionCount)
                 {
-                    ChangePartitionNumber();
+                    _topicPartitionNumber++;
                 }
 
                 producer.Flush(TimeSpan.FromSeconds(10));
@@ -130,12 +111,6 @@ namespace Framework.Messaging.Kafka.Publish
         {
             _connectionConfig = _kafkaConfigurationProvider.GetPublishConnectionConfiguration(connectionName) as KafkaConnectionConfigModel;
             return _connectionConfig != null && _connectionConfig.ConnectionIsEnabled;
-        }
-
-        private void ChangePartitionNumber()
-        {
-            Random rnd = new Random();
-            _topicPartitionNumber = rnd.Next(0, _connectionConfig.PartitionCount);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Framework.Patterns.Ioc;
+using Framework.Patterns.Loging;
 
 namespace Framework.Patterns.Messaging
 {
@@ -6,18 +7,23 @@ namespace Framework.Patterns.Messaging
     {
         private readonly IEventQueue _eventQueue;
         private readonly IDependencyResolver _resolver;
+        private readonly IExecutionScope _executionScope;
 
-        public EventProcessor(IEventQueue eventQueue, IDependencyResolver resolver)
+        public EventProcessor(IEventQueue eventQueue, IDependencyResolver resolver, IExecutionScope executionScope)
         {
             _eventQueue = eventQueue;
             _resolver = resolver;
+            _executionScope = executionScope;
         }
 
         public void Process()
         {
             while (_eventQueue.HasEvents)
             {
-                HandleEvent(_eventQueue.Dequeue());
+                var @event = _eventQueue.Dequeue();
+                _executionScope.StartScope(@event);
+                HandleEvent(@event);
+                _executionScope.UnwindScope();
             }
         }
 

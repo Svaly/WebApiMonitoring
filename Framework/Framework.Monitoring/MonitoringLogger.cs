@@ -1,15 +1,17 @@
-﻿using Framework.Patterns.Loging;
+﻿using System.Diagnostics;
+using Framework.Patterns.Loging;
+using Newtonsoft.Json;
 
 namespace Framework.Monitoring
 {
     public sealed class MonitoringLogger : IMonitoringLogger
     {
         private readonly ILogger _logger;
-        private readonly IExecutionScopeMetadata _executionScopeMetadata;
+        private readonly IExecutionScope _executionScope;
 
-        public MonitoringLogger(IExecutionScopeMetadata executionScopeMetadata, ILogger logger)
+        public MonitoringLogger(IExecutionScope executionScope, ILogger logger)
         {
-            _executionScopeMetadata = executionScopeMetadata;
+            _executionScope = executionScope;
             _logger = logger;
         }
 
@@ -17,14 +19,16 @@ namespace Framework.Monitoring
         {
             EnrichLog(log);
             _logger.Log(log);
+
+            Debug.WriteLine(JsonConvert.SerializeObject(log));
         }
 
         private void EnrichLog(ILog log)
         {
-            log.CausationId = _executionScopeMetadata.CausationId;
-            log.CorrelationId = _executionScopeMetadata.CorrelationId;
-            log.ProcessingScope = _executionScopeMetadata.ProcessingScope.Value;
-            log.ApplicationName = _executionScopeMetadata.ApplicationName;
+            log.CausationId = _executionScope.CurrentScopeMetadata.CausationId;
+            log.CorrelationId = _executionScope.CurrentScopeMetadata.CorrelationId;
+            log.ProcessingScope = _executionScope.CurrentScopeMetadata.ProcessingScope.Value;
+            log.ApplicationName = _executionScope.CurrentScopeMetadata.ApplicationName;
         }
     }
 }

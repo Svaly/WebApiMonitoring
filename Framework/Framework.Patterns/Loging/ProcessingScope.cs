@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Framework.Monitoring
+namespace Framework.Patterns.Loging
 {
     public sealed class ProcessingScope
     {

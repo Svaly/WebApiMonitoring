@@ -1,5 +1,4 @@
-﻿using Framework.Logs.Logger;
-using Framework.Monitoring.Extensions;
+﻿using Framework.Monitoring.Extensions;
 using Framework.Patterns.Loging;
 using System.Diagnostics;
 using System.Net.Http;
@@ -26,11 +25,14 @@ namespace Framework.Monitoring
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-                _executionScope.SetUpMetadata(request);
-                var response = await base.SendAsync(request, cancellationToken);
-                _logger.Log(CreateLog(request, response));
-                _logsPublisher.CommitLogsAsync();
-                return response;
+            _executionScope.StartScope(ProcessingScope.WebRequest, request.GetRequestIdHeader(), request.GetCorrelationIdHeader());
+
+            var response = await base.SendAsync(request, cancellationToken);
+            _logger.Log(CreateLog(request, response));
+            _logsPublisher.CommitLogsAsync();
+
+            _executionScope.UnwindScope();
+            return response;
         }
 
         private WebRequestProcessingLog CreateLog(HttpRequestMessage request, HttpResponseMessage response)
