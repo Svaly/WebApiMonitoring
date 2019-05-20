@@ -2,7 +2,7 @@
 
 namespace Framework.Monitoring
 {
-    public interface IMonitoringLogger : ILogger
+    public interface IMonitoringLogsPublisher : ILogsPublisher
     {
     }
 }

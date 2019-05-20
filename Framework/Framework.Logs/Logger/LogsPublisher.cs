@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Framework.Patterns.Loging;
+﻿using Framework.Patterns.Loging;
 
 namespace Framework.Logs.Logger
 {
@@ -7,32 +6,14 @@ namespace Framework.Logs.Logger
     {
         private readonly ILogsQueue _logsQueue;
 
-        private readonly IMessageQueueLogsPublisher _messageQueueLogsPublisher;
-
-        private readonly IEventLogLogsPublisher _eventLogLogsPublisher;
-
-        private readonly IFileLogsPublisher _filesLogger;
-
-        public LogsPublisher(IEventLogLogsPublisher eventLogLogsPublisher, IMessageQueueLogsPublisher messageQueueLogsPublisher, IFileLogsPublisher filesLogger, ILogsQueue logsQueue)
+        public LogsPublisher(ILogsQueue logsQueue)
         {
-            _eventLogLogsPublisher = eventLogLogsPublisher;
-            _messageQueueLogsPublisher = messageQueueLogsPublisher;
-            _filesLogger = filesLogger;
             _logsQueue = logsQueue;
         }
 
-        public async Task CommitLogsAsync()
+        public void Publish(ILog log)
         {
-          while (_logsQueue.HasEvents)
-          {
-              if (_logsQueue.TryDequeue(out ILog log))
-              {
-                  await Task.WhenAll(
-                      _messageQueueLogsPublisher.CommitLogAsync(log),
-                      _eventLogLogsPublisher.CommitLogAsync(log),
-                      _filesLogger.CommitLogAsync(log));
-                }
-          }
+            _logsQueue.Enqueue(log);
         }
     }
 }

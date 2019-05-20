@@ -14,11 +14,15 @@ namespace Framework.Patterns.Messaging
 
         long EventVersion { get; }
 
-        Guid CorrelationId { get; }
+        Guid CorrelationId { get; set; }
 
-        Guid CausationId { get; }
+        Guid UserId { get; }
 
-        string ApplicationName { get; }
+        Guid CausationId { get; set; }
+
+        string ApplicationName { get; set; }
+
+        string ProcessingScope { get; set; }
 
         DateTime When { get; }
     }

@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
-
-namespace Framework.Patterns.Loging
+﻿namespace Framework.Patterns.Loging
 {
     public interface ILogsPublisher
     {
-        Task CommitLogsAsync();
+        void Publish(ILog log);
     }
 }

@@ -3,8 +3,8 @@ using Framework.Patterns.Loging;
 
 namespace Framework.Logs.Logger
 {
-    public interface IFileLogsPublisher
+    public interface ILogsDispatcher
     {
-        Task CommitLogAsync(ILog logs);
+        Task DispatchAsync(ILog log);
     }
 }

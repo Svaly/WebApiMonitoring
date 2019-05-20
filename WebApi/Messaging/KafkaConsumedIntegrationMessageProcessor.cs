@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace WebApi.Messaging
 {
-    public class KafkaDomainMessagesHandler : IKafkaConsumerMessageHandler
+    public class KafkaConsumedIntegrationMessageProcessor : IKafkaConsumedMessageProcessor
     {
         private readonly IEventRoutingEventsMappingProvider _eventRoutingEventsMappingProvider;
         private readonly IEventPublisher _eventPublisher;
         private readonly IEventProcessor _eventProcessor;
 
-        public KafkaDomainMessagesHandler(
+        public KafkaConsumedIntegrationMessageProcessor(
             IEventRoutingEventsMappingProvider eventRoutingEventsMappingProvider,
             IEventPublisher eventPublisher,
             IEventProcessor eventProcessor)
@@ -21,7 +21,7 @@ namespace WebApi.Messaging
             _eventProcessor = eventProcessor;
         }
 
-        public void HandleMessage(KeyValuePair<string, string> message, string connectionName)
+        public void ProcessMessage(KeyValuePair<string, string> message, string connectionName)
         {
             var eventsMapping = _eventRoutingEventsMappingProvider.GetMapping(connectionName);
             var @event = eventsMapping.GetEvent(message.Key, message.Value);

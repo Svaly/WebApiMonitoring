@@ -5,6 +5,6 @@ namespace Framework.Logs.Logger
 {
     public interface IEventLogLogsPublisher
     {
-        Task CommitLogAsync(ILog logs);
+        Task PublishAsync(ILog logs);
     }
 }

@@ -10,14 +10,14 @@ namespace Framework.Monitoring
     public class LoggingWebApiRequestDelegatingHandler : DelegatingHandler
     {
         private readonly IExecutionScope _executionScope;
-        private readonly IMonitoringLogger _logger;
-        private readonly ILogsPublisher _logsPublisher;
+        private readonly IMonitoringLogsPublisher _logsPublisher;
+        private readonly ILogsProcessor _logsProcessor;
         private readonly Stopwatch _stopwatch;
 
-        public LoggingWebApiRequestDelegatingHandler(ILogsPublisher logsPublisher, IMonitoringLogger logger, IExecutionScope executionScope)
+        public LoggingWebApiRequestDelegatingHandler(ILogsProcessor logsProcessor, IMonitoringLogsPublisher logsPublisher, IExecutionScope executionScope)
         {
             _logsPublisher = logsPublisher;
-            _logger = logger;
+            _logsProcessor = logsProcessor;
             _executionScope = executionScope;
             _stopwatch = new Stopwatch();
             _stopwatch.Start();
@@ -28,9 +28,9 @@ namespace Framework.Monitoring
             _executionScope.StartScope(ProcessingScope.WebRequest, request.GetRequestIdHeader(), request.GetCorrelationIdHeader());
 
             var response = await base.SendAsync(request, cancellationToken);
-            _logger.Log(CreateLog(request, response));
-            _logsPublisher.CommitLogsAsync();
+            _logsPublisher.Publish(CreateLog(request, response));
 
+            await _logsProcessor.ProcessAsync();
             _executionScope.UnwindScope();
             return response;
         }

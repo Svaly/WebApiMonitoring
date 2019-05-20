@@ -66,9 +66,10 @@
     <Compile Include="Messaging\EventDispatcherProxy.cs" />
     <Compile Include="Messaging\Contracts\DomainEventRoutingEventsMapping.cs" />
     <Compile Include="Messaging\EventRoutingEventsMappingProvider.cs" />
-    <Compile Include="Messaging\KafkaLogsMessagesHandler.cs" />
-    <Compile Include="Messaging\KafkaDomainMessagesHandler.cs" />
-    <Compile Include="Messaging\KafkaMessageQueueConsumer.cs" />
+    <Compile Include="Messaging\KafkaIntegrationMessageProcessorProxy.cs" />
+    <Compile Include="Messaging\KafkaLogsMessagesProcessor.cs" />
+    <Compile Include="Messaging\KafkaConsumedIntegrationMessageProcessor.cs" />
+    <Compile Include="Messaging\KafkaMessageQueueConsumersRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -120,9 +121,9 @@
       <Project>{98535117-d759-402a-9b43-bbb950485d99}</Project>
       <Name>Identity.Search</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BoundedContexts\Identity\Identity.Service\Identity.Service.csproj">
+    <ProjectReference Include="..\BoundedContexts\Identity\Identity.Service\Identity.Handlers.csproj">
       <Project>{a4890eaf-9fd0-406e-ac42-ebeb9088c299}</Project>
-      <Name>Identity.Service</Name>
+      <Name>Identity.Handlers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Framework\Framework.Logs\Framework.Logs.csproj">
       <Project>{1F1D31DF-9086-4C45-B0D2-D7BE847C4649}</Project>

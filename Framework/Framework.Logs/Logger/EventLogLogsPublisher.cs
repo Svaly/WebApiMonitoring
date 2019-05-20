@@ -9,7 +9,7 @@ namespace Framework.Logs.Logger
     {
         private const int SystemLogSize = 30000;
 
-        public Task CommitLogAsync(ILog log)
+        public Task PublishAsync(ILog log)
         {
             var serializedLog = JsonConvert.SerializeObject(log);
 

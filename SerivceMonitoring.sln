@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Infrastructure", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Search", "BoundedContexts\Identity\Identity.Search\Identity.Search.csproj", "{98535117-D759-402A-9B43-BBB950485D99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Service", "BoundedContexts\Identity\Identity.Service\Identity.Service.csproj", "{A4890EAF-9FD0-406E-AC42-EBEB9088C299}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Handlers", "BoundedContexts\Identity\Identity.Service\Identity.Handlers.csproj", "{A4890EAF-9FD0-406E-AC42-EBEB9088C299}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedKernel", "SharedKernel", "{D94C3774-FABE-4424-82DD-F70765A9436C}"
 EndProject
@@ -32,6 +32,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Messaging.Kafka", "Framework\Framework.Messaging.Kafka\Framework.Messaging.Kafka.csproj", "{0BEB062D-9E9D-40CB-A826-82303C024E71}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Messaging", "Framework\Framework.Messaging\Framework.Messaging.csproj", "{54B3B085-14C4-49A1-ABE3-E9B935F464CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Preferences", "Preferences", "{4753E2DA-57DE-4F92-9372-7B57F306622D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Preferences.Domain", "Domain\Preferences.Domain.csproj", "{AC71DC2A-2312-40B2-B720-C7F1C6CFF29A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Preferences.Domain.Infrastructure", "Domain.Infrastructure\Preferences.Domain.Infrastructure.csproj", "{7B238CDB-D0E4-4AC8-8008-9EDE907F02B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Preferences.Handlers", "Preferences.Handlers\Preferences.Handlers.csproj", "{7EDFDA16-92DA-46CD-A12D-A2E9025AFC42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +91,18 @@ Global
 		{54B3B085-14C4-49A1-ABE3-E9B935F464CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54B3B085-14C4-49A1-ABE3-E9B935F464CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54B3B085-14C4-49A1-ABE3-E9B935F464CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC71DC2A-2312-40B2-B720-C7F1C6CFF29A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC71DC2A-2312-40B2-B720-C7F1C6CFF29A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC71DC2A-2312-40B2-B720-C7F1C6CFF29A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC71DC2A-2312-40B2-B720-C7F1C6CFF29A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B238CDB-D0E4-4AC8-8008-9EDE907F02B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B238CDB-D0E4-4AC8-8008-9EDE907F02B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B238CDB-D0E4-4AC8-8008-9EDE907F02B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B238CDB-D0E4-4AC8-8008-9EDE907F02B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EDFDA16-92DA-46CD-A12D-A2E9025AFC42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EDFDA16-92DA-46CD-A12D-A2E9025AFC42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EDFDA16-92DA-46CD-A12D-A2E9025AFC42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EDFDA16-92DA-46CD-A12D-A2E9025AFC42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,5 +119,9 @@ Global
 		{704DB737-2F57-4C87-BF9F-27AC244ADCB9} = {B3913BB4-D0EF-4D61-9A2B-5344E48EF3C7}
 		{0BEB062D-9E9D-40CB-A826-82303C024E71} = {B3913BB4-D0EF-4D61-9A2B-5344E48EF3C7}
 		{54B3B085-14C4-49A1-ABE3-E9B935F464CD} = {B3913BB4-D0EF-4D61-9A2B-5344E48EF3C7}
+		{4753E2DA-57DE-4F92-9372-7B57F306622D} = {2B14A070-8B76-44D5-9730-A949ADD9C43E}
+		{AC71DC2A-2312-40B2-B720-C7F1C6CFF29A} = {4753E2DA-57DE-4F92-9372-7B57F306622D}
+		{7B238CDB-D0E4-4AC8-8008-9EDE907F02B7} = {4753E2DA-57DE-4F92-9372-7B57F306622D}
+		{7EDFDA16-92DA-46CD-A12D-A2E9025AFC42} = {4753E2DA-57DE-4F92-9372-7B57F306622D}
 	EndGlobalSection
 EndGlobal

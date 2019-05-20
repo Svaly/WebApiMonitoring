@@ -2,7 +2,7 @@
 
 namespace Framework.Messaging.Kafka.Consume
 {
-    public interface IKafkaConsumerMessageHandler : IConsumerMessageHandler
+    public interface IKafkaConsumedMessageProcessor : IConsumedMessageProcessor
     {
     }
 }

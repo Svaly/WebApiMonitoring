@@ -3,9 +3,9 @@ using Framework.Messaging.Kafka.Consume;
 
 namespace WebApi.Messaging
 {
-    public class KafkaLogsMessagesHandler : IKafkaConsumerMessageHandler
+    public class KafkaLogsMessagesProcessor : IKafkaConsumedMessageProcessor
     {
-        public void HandleMessage(KeyValuePair<string, string> message, string connectionName)
+        public void ProcessMessage(KeyValuePair<string, string> message, string connectionName)
         {
             throw new System.NotImplementedException();
         }

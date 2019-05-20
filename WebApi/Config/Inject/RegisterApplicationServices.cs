@@ -4,7 +4,6 @@ using Framework.Patterns.Cqrs;
 using Framework.Patterns.Messaging;
 using SimpleInjector;
 using System;
-using System.Linq;
 
 namespace WebApi.Config.Inject
 {

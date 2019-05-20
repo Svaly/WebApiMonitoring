@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
-using Framework.Patterns.Ioc;
+﻿using Framework.Patterns.Ioc;
 using SimpleInjector;
+using System;
 
 namespace WebApi.Config
 {

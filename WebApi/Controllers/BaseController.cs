@@ -10,14 +10,14 @@ namespace WebApi.Controllers
     public abstract class BaseController : ApiController
     {
         protected readonly ICommandDispatcher CommandDispatcher;
-        private readonly IMonitoringLogger _logger;
+        private readonly IMonitoringLogsPublisher _logsPublisher;
 
         protected BaseController(
             ICommandDispatcher commandDispatcher,
-            IMonitoringLogger logger)
+            IMonitoringLogsPublisher logsPublisher)
         {
             CommandDispatcher = commandDispatcher;
-            _logger = logger;
+            _logsPublisher = logsPublisher;
         }
 
         public async Task<IHttpActionResult> HandleCommand<T>(T command)
@@ -37,7 +37,7 @@ namespace WebApi.Controllers
 
         private void LogException(Exception e)
         {
-            _logger.Log(new ExceptionLog(LogLevel.Error, e));
+            _logsPublisher.Publish(new ExceptionLog(LogLevel.Error, e));
         }
     }
 }

@@ -1,24 +1,24 @@
-﻿using System.Diagnostics;
-using Framework.Patterns.Loging;
+﻿using Framework.Patterns.Loging;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace Framework.Monitoring
 {
-    public sealed class MonitoringLogger : IMonitoringLogger
+    public sealed class MonitoringLogsPublisher : IMonitoringLogsPublisher
     {
-        private readonly ILogger _logger;
+        private readonly ILogsPublisher _logger;
         private readonly IExecutionScope _executionScope;
 
-        public MonitoringLogger(IExecutionScope executionScope, ILogger logger)
+        public MonitoringLogsPublisher(IExecutionScope executionScope, ILogsPublisher logger)
         {
             _executionScope = executionScope;
             _logger = logger;
         }
 
-        public void Log(ILog log)
+        public void Publish(ILog log)
         {
             EnrichLog(log);
-            _logger.Log(log);
+            _logger.Publish(log);
 
             Debug.WriteLine(JsonConvert.SerializeObject(log));
         }

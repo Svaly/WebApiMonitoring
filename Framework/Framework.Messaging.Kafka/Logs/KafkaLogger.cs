@@ -8,15 +8,15 @@ namespace Framework.Messaging.Kafka.Logs
 {
     public sealed class KafkaLogger : IKafkaLogger
     {
-        private readonly ILogger _logger;
+        private readonly ILogsPublisher _logsPublisher;
         private readonly List<string> _errors;
         private readonly List<Exception> _exceptions;
         private readonly List<string> _debugMessages;
         private readonly List<KeyValuePair<string, string>> _failedMessages;
 
-        public KafkaLogger(ILogger logger)
+        public KafkaLogger(ILogsPublisher logsPublisher)
         {
-            _logger = logger;
+            _logsPublisher = logsPublisher;
             _debugMessages = new List<string>();
             _errors = new List<string>();
             _exceptions = new List<Exception>();
@@ -50,12 +50,12 @@ namespace Framework.Messaging.Kafka.Logs
             if (_exceptions.Any() || _errors.Any())
             {
                 var log = new KafkaLog(LogLevel.Error, kafkaLogType, message, _errors, _exceptions, _debugMessages, _failedMessages);
-                _logger.Log(log);
+                _logsPublisher.Publish(log);
             }
             else if (_debugMessages.Any())
             {
                 var log = new KafkaLog(LogLevel.Debug, kafkaLogType, message, _errors, _exceptions, _debugMessages, _failedMessages);
-                _logger.Log(log);
+                _logsPublisher.Publish(log);
             }
 
             _exceptions.Clear();

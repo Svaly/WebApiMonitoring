@@ -19,9 +19,9 @@ namespace Framework.Logs.Logger
             _serializer = serializer;
         }
 
-        public Task CommitLogAsync(ILog log)
+        public async Task PublishAsync(ILog log)
         {
-            return _messagePublisher.PublishAsync("ServiceMonitoringPublishLogs", new KeyValuePair<string, string>(log.GetType().ToString(), _serializer.SerializeToJsonString(log)));
+             await _messagePublisher.PublishAsync("ServiceMonitoringPublishLogs", new KeyValuePair<string, string>(log.GetType().ToString(), _serializer.SerializeToJsonString(log)));
         }
     }
 }

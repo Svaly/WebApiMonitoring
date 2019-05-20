@@ -9,8 +9,8 @@ namespace WebApi.Controllers
     [RoutePrefix("api/user")]
     public class UserController : BaseController
     {
-        public UserController(ICommandDispatcher commandDispatcher, IMonitoringLogger logger)
-            : base(commandDispatcher, logger)
+        public UserController(ICommandDispatcher commandDispatcher, IMonitoringLogsPublisher logsPublisher)
+            : base(commandDispatcher, logsPublisher)
         {
         }
 

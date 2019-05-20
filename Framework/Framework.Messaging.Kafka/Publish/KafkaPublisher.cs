@@ -5,6 +5,7 @@ using Framework.Messaging.Kafka.Logs;
 using Framework.Patterns.Validation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,6 +44,7 @@ namespace Framework.Messaging.Kafka.Publish
                 while (!await ProduceMessages(messages, producer) && _topicPartitionNumber < _connectionConfig.PartitionCount)
                 {
                     _topicPartitionNumber++;
+                    Debug.WriteLine(_topicPartitionNumber);
                 }
 
                 producer.Flush(TimeSpan.FromSeconds(10));
@@ -79,7 +81,11 @@ namespace Framework.Messaging.Kafka.Publish
             {
                 try
                 {
+                    Debug.WriteLine("witam");
+
                     await Send(message, producer);
+                    Debug.WriteLine("witam 2");
+
                     return true;
                 }
                 catch (Exception e)

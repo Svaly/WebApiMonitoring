@@ -5,6 +5,6 @@ namespace Framework.Logs.Logger
 {
     public interface IMessageQueueLogsPublisher
     {
-        Task CommitLogAsync(ILog log);
+        Task PublishAsync(ILog log);
     }
 }

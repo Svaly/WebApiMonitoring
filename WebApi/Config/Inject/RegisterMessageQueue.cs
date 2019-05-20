@@ -26,8 +26,8 @@ namespace WebApi.Config.Inject
             container.Register<IObjectDeserializer, ObjectDeserializer>(Lifestyle.Scoped);
 
             container.Register<IEventRoutingEventsMappingProvider, EventRoutingEventsMappingProvider>(Lifestyle.Scoped);
-            container.Register<KafkaDomainMessagesHandler>(Lifestyle.Scoped);
-            container.Register<KafkaLogsMessagesHandler>(Lifestyle.Scoped);
+            container.Register<KafkaConsumedIntegrationMessageProcessor>(Lifestyle.Scoped);
+            container.Register<KafkaLogsMessagesProcessor>(Lifestyle.Scoped);
 
             container.Register<IDefaultPublishConnectionNameProvider, DefaultPublishConnectionNameProvider>(Lifestyle.Scoped);
             container.Register<IEventRoutingEventsMapping, DomainEventRoutingEventsMapping>(Lifestyle.Scoped);

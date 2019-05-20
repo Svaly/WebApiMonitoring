@@ -24,9 +24,13 @@ namespace Framework.Patterns.Messaging
 
         public Guid CorrelationId { get; set; }
 
+        public Guid UserId { get; set; }
+
         public Guid CausationId { get; set; }
 
         public string ApplicationName { get; set; }
+
+        public string ProcessingScope { get; set; }
 
         public DateTime When { get; }
     }

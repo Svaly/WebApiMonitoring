@@ -33,8 +33,8 @@ namespace WebApi
             GlobalConfiguration.Configuration.MessageHandlers.Add(new DelegatingHandlerProxy<LoggingWebApiRequestDelegatingHandler>(container));
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container, DependencyResolverScopeOption.UseAmbientScope);
 
-            KafkaMessageQueueConsumer.RegisterConsumeConnection<KafkaLogsMessagesHandler>(container, "SerivceMonitoringLogsConsume");
-            KafkaMessageQueueConsumer.RegisterConsumeConnection<KafkaDomainMessagesHandler>(container, "SerivceMonitoringDomainEventsConsume");
+            KafkaMessageQueueConsumersRegistrar.RegisterConsumeConnection<KafkaLogsMessagesProcessor>(container, "ServiceMonitoringLogsConsume");
+            KafkaMessageQueueConsumersRegistrar.RegisterConsumeConnection<KafkaConsumedIntegrationMessageProcessor>(container, "ServiceMonitoringDomainEventsConsume");
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
