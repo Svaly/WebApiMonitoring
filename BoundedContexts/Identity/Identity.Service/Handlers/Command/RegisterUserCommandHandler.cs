@@ -1,11 +1,11 @@
-﻿using Framework.Patterns.Cqrs;
+﻿using System;
+using System.Threading.Tasks;
+using Framework.Patterns.Cqrs;
 using Framework.Patterns.Messaging;
 using Identity.Domain.Aggregates;
-using Identity.Service.Contracts.Command;
-using System;
-using System.Threading.Tasks;
+using Identity.Handlers.Contracts.Command;
 
-namespace Identity.Service.Handlers.Command
+namespace Identity.Handlers.Handlers.Command
 {
     public sealed class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand>
     {

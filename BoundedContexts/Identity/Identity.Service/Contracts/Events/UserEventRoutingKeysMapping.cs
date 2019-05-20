@@ -4,7 +4,7 @@ using Framework.Patterns.Messaging;
 using Identity.Domain.Aggregates;
 using Identity.Domain.Events;
 
-namespace Identity.Service.Contracts.Events
+namespace Identity.Handlers.Contracts.Events
 {
     public sealed class UserEventRoutingKeysMapping : IEventRoutingKeysMapping<User>
     {
