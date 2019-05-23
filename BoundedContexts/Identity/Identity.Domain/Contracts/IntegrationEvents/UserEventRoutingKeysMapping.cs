@@ -1,10 +1,10 @@
-﻿using System;
-using Framework.Messaging.Publish;
+﻿using Framework.Messaging.Publish;
 using Framework.Patterns.Messaging;
 using Identity.Domain.Aggregates;
 using Identity.Domain.Events;
+using System;
 
-namespace Identity.Handlers.Contracts.Events
+namespace Identity.Domain.Contracts.IntegrationEvents
 {
     public sealed class UserEventRoutingKeysMapping : IEventRoutingKeysMapping<User>
     {

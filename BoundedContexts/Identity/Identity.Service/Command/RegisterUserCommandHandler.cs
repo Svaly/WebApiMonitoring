@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Framework.Patterns.Cqrs;
 using Framework.Patterns.Messaging;
 using Identity.Domain.Aggregates;
-using Identity.Handlers.Contracts.Command;
+using Identity.Domain.Contracts.Commands;
 
-namespace Identity.Handlers.Handlers.Command
+namespace Identity.Handlers.Command
 {
     public sealed class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand>
     {
@@ -22,8 +22,6 @@ namespace Identity.Handlers.Handlers.Command
             {
                 var user = new User(command.CommandId, Guid.NewGuid());
                 _integrationEventPublisher.Send(user.Events);
-                //Thread.Sleep(2000);
-                //throw new NotImplementedException();
             });
         }
     }

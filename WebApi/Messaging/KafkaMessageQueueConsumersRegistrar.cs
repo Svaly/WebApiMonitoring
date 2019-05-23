@@ -7,6 +7,7 @@ using Framework.Messaging.Kafka.Publish;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace WebApi.Messaging
@@ -23,17 +24,20 @@ namespace WebApi.Messaging
                 _kafkaConfigurationProvider.GetConsumeConnectionConfiguration(connectionName) as
                     KafkaConnectionConfigModel;
 
-            if (!connection.ConnectionIsEnabled) return;
+            Debug.WriteLine(connection.ConnectionIsEnabled);
 
-            _connectionsTasks.Add(Task.Run(() =>
+            if (connection.ConnectionIsEnabled)
             {
-                using (var scope = AsyncScopedLifestyle.BeginScope(dependencyContainer))
+                _connectionsTasks.Add(Task.Run(() =>
                 {
-                    var consumer = scope.GetInstance<IKafkaConsumer>();
-                    var kafkaConsumerMessageHandler = scope.GetInstance<T>();
-                    consumer.ListenInfiniteLoopAsync(connection, kafkaConsumerMessageHandler);
-                }
-            }));
+                    using (var scope = AsyncScopedLifestyle.BeginScope(dependencyContainer))
+                    {
+                        var consumer = scope.GetInstance<IKafkaConsumer>();
+                        var kafkaConsumerMessageHandler = scope.GetInstance<T>();
+                        consumer.ListenInfiniteLoopAsync(connection, kafkaConsumerMessageHandler);
+                    }
+                }));
+            }
         }
 
         private static IKafkaConsumer CreateConsumer()

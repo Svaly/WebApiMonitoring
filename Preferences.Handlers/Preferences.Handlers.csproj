@@ -40,7 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\ProductLikedEventHandler.cs" />
+    <Compile Include="Events\ProductAddedToCartEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Preferences.Domain.csproj">
+      <Project>{AC71DC2A-2312-40B2-B720-C7F1C6CFF29A}</Project>
+      <Name>Preferences.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.Patterns\Framework.Patterns.csproj">
+      <Project>{71B541AC-2B1D-42AA-8351-4EF95E25F2D9}</Project>
+      <Name>Framework.Patterns</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

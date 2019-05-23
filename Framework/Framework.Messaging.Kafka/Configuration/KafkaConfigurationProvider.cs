@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Framework.Messaging.Configuration;
+using Framework.Messaging.Kafka.Exceptions;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using Framework.Messaging.Configuration;
-using Framework.Messaging.Kafka.Exceptions;
 
 namespace Framework.Messaging.Kafka.Configuration
 {

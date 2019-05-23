@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Domain.Contracts.IntegrationEvents.Catalog;
 using Framework.Messaging.Consume;
 using Framework.Messaging.Converters;
 using Framework.Patterns.Messaging;
 using Identity.Domain.Events;
+using System;
 
 namespace WebApi.Messaging.Contracts
 {
@@ -21,6 +22,10 @@ namespace WebApi.Messaging.Contracts
             {
                 case "User.Created":
                     return _objectDeserializer.Deserialize<UserCreatedEvent>(message);
+                case "Product.Added.To.Cart":
+                    return _objectDeserializer.Deserialize<ProductAddedToCartEvent>(message);
+                case "Product.Liked":
+                    return _objectDeserializer.Deserialize<ProductLikedEvent>(message);
                 default:
                     throw new ArgumentException($"No type binding available for given routing key {routingKey}");
             }

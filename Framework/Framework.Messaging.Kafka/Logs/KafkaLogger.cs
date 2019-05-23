@@ -49,12 +49,12 @@ namespace Framework.Messaging.Kafka.Logs
         {
             if (_exceptions.Any() || _errors.Any())
             {
-                var log = new KafkaLog(LogLevel.Error, kafkaLogType, message, _errors, _exceptions, _debugMessages, _failedMessages);
+                var log = new KafkaLog(LogLevel.Error, kafkaLogType, message, _errors.ToArray(), _exceptions.ToArray(), _debugMessages.ToArray(), _failedMessages.ToArray());
                 _logsPublisher.Publish(log);
             }
             else if (_debugMessages.Any())
             {
-                var log = new KafkaLog(LogLevel.Debug, kafkaLogType, message, _errors, _exceptions, _debugMessages, _failedMessages);
+                var log = new KafkaLog(LogLevel.Debug, kafkaLogType, message, _errors.ToArray(), _exceptions.ToArray(), _debugMessages.ToArray(), _failedMessages.ToArray());
                 _logsPublisher.Publish(log);
             }
 

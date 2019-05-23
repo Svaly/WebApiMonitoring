@@ -22,10 +22,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Framework\Framework.Messaging\Framework.Messaging.csproj" />
     <ProjectReference Include="..\..\..\Framework\Framework.Patterns\Framework.Patterns.csproj" />
-    <ProjectReference Include="..\Identity.Infrastructure\Identity.Infrastructure.csproj" />
+    <ProjectReference Include="..\Identity.Infrastructure\Identity.Domain.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Handlers\Event\Internal\" />
+    <Folder Include="Event\Internal\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 </Project>

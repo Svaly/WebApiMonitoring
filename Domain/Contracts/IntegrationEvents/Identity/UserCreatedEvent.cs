@@ -1,7 +1,7 @@
-﻿using Framework.Patterns.Messaging;
-using System;
+﻿using System;
+using Framework.Patterns.Messaging;
 
-namespace Identity.Domain.Events
+namespace Domain.Contracts.IntegrationEvents.Identity
 {
     public sealed class UserCreatedEvent : Event
     {

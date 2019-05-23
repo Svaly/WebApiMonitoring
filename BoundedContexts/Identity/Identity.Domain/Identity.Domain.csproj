@@ -15,10 +15,10 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Contracts\IntegrationEvents\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\Framework.Messaging\Framework.Messaging.csproj" />
     <ProjectReference Include="..\..\..\Framework\Framework.Patterns\Framework.Patterns.csproj" />
   </ItemGroup>
 </Project>
