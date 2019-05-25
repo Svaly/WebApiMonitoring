@@ -19,8 +19,12 @@ namespace Framework.Patterns.Messaging
         private void DispatchEvent<T>(T @event)
             where T : IEvent
         {
-            var handler = _resolver.GetService<IEventHandler<T>>();
-            handler.Handle(@event);
+            var eventType = @event.GetType();
+            var handlerType = typeof(IEventHandler<>).MakeGenericType(eventType);
+
+            var handler = _resolver.GetService(handlerType);
+            var handlerMethod = handler.GetType().GetMethod("Handle");
+            handlerMethod?.Invoke(handler, new object[] { @event });
         }
     }
 }

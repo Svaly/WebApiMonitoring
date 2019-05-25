@@ -51,7 +51,7 @@ namespace WebApi.Messaging
                     new LogsProcessor(logsQueue,
                         new LogsDispatcher(new EventLogLogsPublisher(),
                             new MessageQueueLogsPublisher(
-                                new KafkaPublisher(new KafkaProducerFactory(),
+                                new KafkaPublisher(new KafkaPublisherFactory(),
                                     new KafkaLogger(new LogsPublisher(new LogsQueue())),
                                     new KafkaConfigurationProvider()), new ObjectSerializer()))));
         }

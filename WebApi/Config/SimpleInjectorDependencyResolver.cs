@@ -2,6 +2,7 @@
 using SimpleInjector;
 using System;
 using System.Linq;
+using Framework.Patterns.Messaging;
 
 namespace WebApi.Config
 {

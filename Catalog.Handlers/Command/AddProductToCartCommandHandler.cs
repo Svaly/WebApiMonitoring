@@ -19,10 +19,9 @@ namespace Catalog.Handlers.Command
 
         public Task HandleAsync(AddProductToCartCommand command)
         {
-            return Task.Run(() =>
-            {
+            return Task.Run(() => {
                 var @event = new ProductAddedToCartEvent(command.CommandId, Guid.NewGuid());
-                _integrationEventPublisher.Send(@event);
+                _integrationEventPublisher.Publish(@event);
             });
         }
     }

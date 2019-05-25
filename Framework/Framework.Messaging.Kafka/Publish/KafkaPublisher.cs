@@ -1,11 +1,9 @@
 ﻿using Confluent.Kafka;
 using Framework.Messaging.Kafka.Configuration;
-using Framework.Messaging.Kafka.Extensions;
 using Framework.Messaging.Kafka.Logs;
 using Framework.Patterns.Validation;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,16 +11,16 @@ namespace Framework.Messaging.Kafka.Publish
 {
     public sealed class KafkaPublisher : IKafkaPublisher
     {
-        private readonly IKafkaProducerFactory _kafkaProducerFactory;
+        private readonly IKafkaPublisherFactory _kafkaPublisherFactory;
         private readonly IKafkaLogger _kafkaLogger;
         private readonly IKafkaConfigurationProvider _kafkaConfigurationProvider;
         private KafkaConnectionConfigModel _connectionConfig;
         private int _topicPartitionNumber;
 
-        public KafkaPublisher(IKafkaProducerFactory kafkaProducerFactory, IKafkaLogger kafkaLogger, IKafkaConfigurationProvider kafkaConfigurationProvider)
+        public KafkaPublisher(IKafkaPublisherFactory kafkaPublisherFactory, IKafkaLogger kafkaLogger, IKafkaConfigurationProvider kafkaConfigurationProvider)
         {
             _topicPartitionNumber = 0;
-            _kafkaProducerFactory = kafkaProducerFactory;
+            _kafkaPublisherFactory = kafkaPublisherFactory;
             _kafkaLogger = kafkaLogger;
             _kafkaConfigurationProvider = kafkaConfigurationProvider;
         }
@@ -41,39 +39,41 @@ namespace Framework.Messaging.Kafka.Publish
 
             using (var producer = CreateProducer())
             {
-                while (!await ProduceMessages(messages, producer) && _topicPartitionNumber < _connectionConfig.PartitionCount)
+                while (!await PublishMessagesAsync(messages, producer) && _topicPartitionNumber < _connectionConfig.PartitionCount)
                 {
                     _topicPartitionNumber++;
-                    Debug.WriteLine(_topicPartitionNumber);
+                    _kafkaLogger.CommitLogs(KafkaLogType.Publish);
                 }
 
                 producer.Flush(TimeSpan.FromSeconds(10));
             }
+
+            _kafkaLogger.CommitLogs(KafkaLogType.Publish);
         }
 
         private IProducer<string, string> CreateProducer()
         {
-            return _kafkaProducerFactory.CreateProducer(_connectionConfig, ProducerLogHandler, ProducerErrorHandler);
+            return _kafkaPublisherFactory.CreateProducer(_connectionConfig, ProducerLogHandler, ProducerErrorHandler);
         }
 
-        private async Task<bool> ProduceMessages(IEnumerable<KeyValuePair<string, string>> messages, IProducer<string, string> producer)
+        private async Task<bool> PublishMessagesAsync(IEnumerable<KeyValuePair<string, string>> messages, IProducer<string, string> producer)
         {
-            int failsCount = 0;
+            var kafkaMessages = ConvertKeyValuePairsToKafkaMessages(messages);
+            int failedMessages = 0;
 
-            foreach (var message in messages)
+            foreach (var message in kafkaMessages)
             {
-                if (await ProduceMessage(message.ToKafkaMessage(), producer) is false)
+                if (!await PublishMessageAsync(message, producer))
                 {
-                    failsCount++;
-                    _kafkaLogger.AppendFailedMessageToLog(message);
+                    failedMessages++;
+                    _kafkaLogger.AppendFailedMessageToLog(new KeyValuePair<string, string>(message.Key, message.Value));
                 }
             }
 
-            _kafkaLogger.CommitLogs(KafkaLogType.Publish);
-            return failsCount == 0 || failsCount != messages.Count();
+            return failedMessages == 0 || failedMessages != kafkaMessages.Count;
         }
 
-        private async Task<bool> ProduceMessage(Message<string, string> message, IProducer<string, string> producer)
+        private async Task<bool> PublishMessageAsync(Message<string, string> message, IProducer<string, string> producer)
         {
             var retryCounter = 0;
 
@@ -81,11 +81,7 @@ namespace Framework.Messaging.Kafka.Publish
             {
                 try
                 {
-                    Debug.WriteLine("witam");
-
-                    await Send(message, producer);
-                    Debug.WriteLine("witam 2");
-
+                    await PublishAsync(message, producer);
                     return true;
                 }
                 catch (Exception e)
@@ -98,15 +94,15 @@ namespace Framework.Messaging.Kafka.Publish
             return false;
         }
 
-        private async Task Send(Message<string, string> message, IProducer<string, string> producer)
+        private async Task<DeliveryResult<string, string>> PublishAsync(Message<string, string> message, IProducer<string, string> producer)
         {
             if (_connectionConfig.SinglePartitionPublishPolicyEnabled)
             {
                 var topicPartition = new TopicPartition(_connectionConfig.Topic, new Partition(_topicPartitionNumber));
-                 await producer.ProduceAsync(topicPartition, message);
+                return await producer.ProduceAsync(topicPartition, message);
             }
 
-             await producer.ProduceAsync(_connectionConfig.Topic, message);
+            return await producer.ProduceAsync(_connectionConfig.Topic, message);
         }
 
         private void ProducerErrorHandler(IProducer<string, string> sender, Error error) => _kafkaLogger.AppendErrorToLog(error);
@@ -117,6 +113,11 @@ namespace Framework.Messaging.Kafka.Publish
         {
             _connectionConfig = _kafkaConfigurationProvider.GetPublishConnectionConfiguration(connectionName) as KafkaConnectionConfigModel;
             return _connectionConfig != null && _connectionConfig.ConnectionIsEnabled;
+        }
+
+        private ICollection<Message<string, string>> ConvertKeyValuePairsToKafkaMessages(IEnumerable<KeyValuePair<string, string>> messages)
+        {
+            return messages.Select(m => new Message<string, string> { Key = m.Key, Value = m.Value }).ToList();
         }
     }
 }

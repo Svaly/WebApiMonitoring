@@ -3,11 +3,10 @@
 namespace Framework.Patterns.Messaging
 {
     public interface IIntegrationEventPublisher<TEntity>
+        where TEntity : IAggregateRoot
     {
-        void Send(IEnumerable<IEvent> events);
+        void Publish(IEnumerable<IEvent> events);
 
-        void Send(IEvent @event);
-
-        void SetConnectionName(string connectionName);
+        void Publish(IEvent @event);
     }
 }

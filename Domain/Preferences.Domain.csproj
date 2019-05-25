@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\UserPreference.cs" />
     <Compile Include="Contracts\IntegrationEvents\Catalog\ProductAddedToCartEvent.cs" />
     <Compile Include="Contracts\IntegrationEvents\Catalog\ProductLikedEvent.cs" />
     <Compile Include="Contracts\IntegrationEvents\Identity\UserCreatedEvent.cs" />
@@ -54,7 +55,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Aggregates\" />
     <Folder Include="Contracts\Commands\" />
     <Folder Include="Entities\" />
     <Folder Include="Events\" />

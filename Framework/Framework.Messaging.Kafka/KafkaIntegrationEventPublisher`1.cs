@@ -1,46 +1,46 @@
-using Framework.Messaging.Converters;
-using Framework.Messaging.Kafka.Publish;
+﻿using Framework.Messaging.Converters;
 using Framework.Messaging.Publish;
 using Framework.Patterns;
 using Framework.Patterns.Messaging;
 using System.Collections.Generic;
-using System.Linq;
+using Framework.Patterns.Loging;
 
 namespace Framework.Messaging.Kafka
 {
     public sealed class KafkaIntegrationEventPublisher<TEntity> : IKafkaIntegrationEventPublisher<TEntity>
         where TEntity : IAggregateRoot
     {
+        private readonly IIntegrationEventPublisherInMemoryMessageQueue _messageQueue;
         private readonly IEventRoutingKeysMapping<TEntity> _eventRoutingKeysMapping;
-        private readonly IKafkaPublisher _kafkaPublisher;
         private readonly IObjectSerializer _objectSerializer;
-        private string _connectionName;
+        private readonly IExecutionScope _executionScope;
 
         public KafkaIntegrationEventPublisher(
             IEventRoutingKeysMapping<TEntity> eventRoutingKeysMapping,
-            IKafkaPublisher kafkaPublisher,
             IObjectSerializer objectSerializer,
-            IDefaultPublishConnectionNameProvider defaultPublishConnectionNameProvider)
+            IIntegrationEventPublisherInMemoryMessageQueue messageQueue, IExecutionScope executionScope)
         {
             _eventRoutingKeysMapping = eventRoutingKeysMapping;
-            _kafkaPublisher = kafkaPublisher;
             _objectSerializer = objectSerializer;
-            _connectionName = defaultPublishConnectionNameProvider.GetDefaultPublishConnectionName();
+            _messageQueue = messageQueue;
+            _executionScope = executionScope;
         }
 
-        public void SetConnectionName(string connectionName)
+        public void Publish(IEvent @event)
         {
-            _connectionName = connectionName;
+            EnrichEvent(@event);
+            var message = CreateMessage(@event);
+            _messageQueue.Enqueue(message);
         }
 
-        public void Send(IEnumerable<IEvent> events)
+        public void Publish(IEnumerable<IEvent> events)
         {
-            _kafkaPublisher.PublishAsync(_connectionName, events.Select(CreateMessage));
-        }
-
-        public void Send(IEvent @event)
-        {
-            _kafkaPublisher.PublishAsync(_connectionName, CreateMessage(@event));
+            foreach (var @event in events)
+            {
+                EnrichEvent(@event);
+                var message = CreateMessage(@event);
+                _messageQueue.Enqueue(message);
+            }
         }
 
         private KeyValuePair<string, string> CreateMessage(IEvent @event)
@@ -49,6 +49,14 @@ namespace Framework.Messaging.Kafka
             var body = _objectSerializer.SerializeToJsonString(@event);
 
             return new KeyValuePair<string, string>(routingKey, body);
+        }
+
+        private void EnrichEvent(IEvent @event)
+        {
+            @event.CorrelationId = _executionScope.CurrentScopeMetadata.CorrelationId;
+            @event.CausationId = _executionScope.CurrentScopeMetadata.CausationId;
+            @event.ApplicationName = _executionScope.CurrentScopeMetadata.ApplicationName;
+            @event.ProcessingScope = _executionScope.CurrentScopeMetadata.ProcessingScope.Value;
         }
     }
 }

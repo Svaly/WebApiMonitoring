@@ -1,5 +1,6 @@
 ﻿using Framework.Monitoring.Extensions;
 using Framework.Patterns.Loging;
+using Framework.Patterns.Messaging;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
@@ -12,13 +13,15 @@ namespace Framework.Monitoring
         private readonly IExecutionScope _executionScope;
         private readonly IMonitoringLogsPublisher _logsPublisher;
         private readonly ILogsProcessor _logsProcessor;
+        private readonly IIntegrationEventsProcessor _integrationEventsesProcessor;
         private readonly Stopwatch _stopwatch;
 
-        public LoggingWebApiRequestDelegatingHandler(ILogsProcessor logsProcessor, IMonitoringLogsPublisher logsPublisher, IExecutionScope executionScope)
+        public LoggingWebApiRequestDelegatingHandler(ILogsProcessor logsProcessor, IMonitoringLogsPublisher logsPublisher, IExecutionScope executionScope, IIntegrationEventsProcessor integrationEventsesProcessor)
         {
             _logsPublisher = logsPublisher;
             _logsProcessor = logsProcessor;
             _executionScope = executionScope;
+            _integrationEventsesProcessor = integrationEventsesProcessor;
             _stopwatch = new Stopwatch();
             _stopwatch.Start();
         }
@@ -30,6 +33,7 @@ namespace Framework.Monitoring
             var response = await base.SendAsync(request, cancellationToken);
             _logsPublisher.Publish(CreateLog(request, response));
 
+            await _integrationEventsesProcessor.ProcessAsync();
             await _logsProcessor.ProcessAsync();
             _executionScope.UnwindScope();
             return response;

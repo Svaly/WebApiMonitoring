@@ -22,7 +22,7 @@ namespace Catalog.Handlers.Command
             return Task.Run(() =>
             {
                 var @event = new ProductLikedEvent(command.CommandId, Guid.NewGuid());
-                _integrationEventPublisher.Send(@event);
+                _integrationEventPublisher.Publish(@event);
             });
         }
     }

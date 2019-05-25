@@ -16,6 +16,7 @@ namespace Framework.Patterns.Messaging
 
         public void Send(IEvent @event)
         {
+            EnrichEvent(@event);
             _eventQueue.Enqueue(@event);
         }
 
@@ -40,6 +41,11 @@ namespace Framework.Patterns.Messaging
 
         private void EnrichEvent(IEvent @event)
         {
+            if (_executionScope.CurrentScopeMetadata is null)
+            {
+                return;
+            }
+
             @event.CorrelationId = _executionScope.CurrentScopeMetadata.CorrelationId;
             @event.CausationId = _executionScope.CurrentScopeMetadata.CausationId;
             @event.ApplicationName = _executionScope.CurrentScopeMetadata.ApplicationName;

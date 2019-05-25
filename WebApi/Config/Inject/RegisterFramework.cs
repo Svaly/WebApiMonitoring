@@ -36,11 +36,8 @@ namespace WebApi.Config.Inject
             container.Register<IEventProcessor, EventProcessor>(Lifestyle.Scoped);
             container.Register<IEventDispatcher, EventDispatcher>(Lifestyle.Scoped);
 
-
-
-            //  container.RegisterDecorator<IEventDispatcher, EventDispatcherProxy>(Lifestyle.Singleton);
-
-            container.Register<IKafkaConsumedMessageProcessor, KafkaConsumedIntegrationMessageProcessor>(Lifestyle.Scoped);
+            container.Register<IKafkaConsumedMessageProcessor, KafkaDomainEventMessageProcessor>(Lifestyle.Scoped);
+            container.Register<KafkaLogsMessagesProcessor>(Lifestyle.Scoped);
             container.RegisterDecorator<IKafkaConsumedMessageProcessor, KafkaIntegrationMessageProcessorProxy>(Lifestyle.Singleton);
         }
     }

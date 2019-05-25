@@ -1,6 +1,6 @@
-﻿using System;
-using Framework.Patterns.Ioc;
+﻿using Framework.Patterns.Ioc;
 using Framework.Patterns.Loging;
+using System;
 
 namespace Framework.Patterns.Messaging
 {
@@ -27,24 +27,26 @@ namespace Framework.Patterns.Messaging
                 try
                 {
                     HandleEvent(@event);
-                    _executionScope.UnwindScope();
                 }
                 catch (Exception e)
                 {
                     _executionScope.UnwindScope();
                     throw;
                 }
+
+                _executionScope.UnwindScope();
             }
         }
 
-        //Todo resolve not working
         private void HandleEvent<T>(T @event)
             where T : IEvent
         {
-          //  var handler = _resolver.GetService<IEventHandler<T>>();
-          var x = typeof(IEventHandler<T>);
-            var handler = _resolver.GetService(x) as IEventHandler<T>;
-            handler.Handle(@event);
+            var eventType = @event.GetType();
+            var handlerType = typeof(IEventHandler<>).MakeGenericType(eventType);
+
+            var handler = _resolver.GetService(handlerType);
+            var handlerMethod = handler.GetType().GetMethod("Handle");
+            handlerMethod?.Invoke(handler, new object[] { @event });
         }
     }
 }
