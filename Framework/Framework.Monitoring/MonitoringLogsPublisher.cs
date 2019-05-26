@@ -19,8 +19,6 @@ namespace Framework.Monitoring
         {
             EnrichLog(log);
             _logger.Publish(log);
-
-            Debug.WriteLine(JsonConvert.SerializeObject(log));
         }
 
         private void EnrichLog(ILog log)

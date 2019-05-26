@@ -21,7 +21,7 @@ namespace WebApi
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
-            container.Register<LoggingWebApiRequestDelegatingHandler>(Lifestyle.Scoped);
+            container.Register<MonitoringWebApiRequestDelegatingHandler>(Lifestyle.Scoped);
 
             RegisterFramework.Register(container);
             RegisterApplicationServices.Register(container);
@@ -31,7 +31,7 @@ namespace WebApi
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             container.Verify();
 
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new DelegatingHandlerProxy<LoggingWebApiRequestDelegatingHandler>(container));
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new DelegatingHandlerProxy<MonitoringWebApiRequestDelegatingHandler>(container));
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container, DependencyResolverScopeOption.UseAmbientScope);
 
             KafkaMessageQueueConsumersRegistrar.RegisterConsumeConnection<KafkaLogsMessagesProcessor>(container, "ServiceMonitoringLogsConsume");

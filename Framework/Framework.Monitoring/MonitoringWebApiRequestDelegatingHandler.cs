@@ -8,20 +8,24 @@ using System.Threading.Tasks;
 
 namespace Framework.Monitoring
 {
-    public class LoggingWebApiRequestDelegatingHandler : DelegatingHandler
+    public class MonitoringWebApiRequestDelegatingHandler : DelegatingHandler
     {
         private readonly IExecutionScope _executionScope;
         private readonly IMonitoringLogsPublisher _logsPublisher;
         private readonly ILogsProcessor _logsProcessor;
-        private readonly IIntegrationEventsProcessor _integrationEventsesProcessor;
+        private readonly IIntegrationEventsProcessor _integrationEventsProcessor;
         private readonly Stopwatch _stopwatch;
 
-        public LoggingWebApiRequestDelegatingHandler(ILogsProcessor logsProcessor, IMonitoringLogsPublisher logsPublisher, IExecutionScope executionScope, IIntegrationEventsProcessor integrationEventsesProcessor)
+        public MonitoringWebApiRequestDelegatingHandler(
+            ILogsProcessor logsProcessor,
+            IMonitoringLogsPublisher logsPublisher,
+            IExecutionScope executionScope,
+            IIntegrationEventsProcessor integrationEventsProcessor)
         {
             _logsPublisher = logsPublisher;
             _logsProcessor = logsProcessor;
             _executionScope = executionScope;
-            _integrationEventsesProcessor = integrationEventsesProcessor;
+            _integrationEventsProcessor = integrationEventsProcessor;
             _stopwatch = new Stopwatch();
             _stopwatch.Start();
         }
@@ -33,7 +37,7 @@ namespace Framework.Monitoring
             var response = await base.SendAsync(request, cancellationToken);
             _logsPublisher.Publish(CreateLog(request, response));
 
-            await _integrationEventsesProcessor.ProcessAsync();
+            await _integrationEventsProcessor.ProcessAsync();
             await _logsProcessor.ProcessAsync();
             _executionScope.UnwindScope();
             return response;

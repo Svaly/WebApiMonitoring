@@ -3,6 +3,7 @@ using Framework.Patterns.Messaging;
 using Identity.Domain.Aggregates;
 using Identity.Domain.Contracts.Commands;
 using System;
+using System.CodeDom;
 using System.Threading.Tasks;
 
 namespace Identity.Handlers.Command
@@ -20,6 +21,7 @@ namespace Identity.Handlers.Command
         {
             return Task.Run(() =>
             {
+                throw  new StackOverflowException("too much work");
                 var user = new User(command.CommandId, Guid.NewGuid());
                 _integrationEventPublisher.Publish(user.Events);
             });

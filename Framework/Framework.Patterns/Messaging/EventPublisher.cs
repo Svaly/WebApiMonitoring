@@ -20,16 +20,6 @@ namespace Framework.Patterns.Messaging
             _eventQueue.Enqueue(@event);
         }
 
-        public void Send(Queue<IEvent> events)
-        {
-            while (events.Count > 0)
-            {
-                var @event = events.Dequeue();
-                EnrichEvent(@event);
-                _eventQueue.Enqueue(@event);
-            }
-        }
-
         public void Send(IEnumerable<IEvent> events)
         {
             foreach (var @event in events)
@@ -51,5 +41,17 @@ namespace Framework.Patterns.Messaging
             @event.ApplicationName = _executionScope.CurrentScopeMetadata.ApplicationName;
             @event.ProcessingScope = _executionScope.CurrentScopeMetadata.ProcessingScope.Value;
         }
+
+
+        public void Send(Queue<IEvent> events)
+        {
+            while (events.Count > 0)
+            {
+                var @event = events.Dequeue();
+                EnrichEvent(@event);
+                _eventQueue.Enqueue(@event);
+            }
+        }
+
     }
 }
