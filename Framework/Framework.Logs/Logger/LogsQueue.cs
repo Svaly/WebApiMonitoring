@@ -1,5 +1,5 @@
-﻿using Framework.Patterns.Loging;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
+using Framework.Patterns.Loging;
 
 namespace Framework.Logs.Logger
 {

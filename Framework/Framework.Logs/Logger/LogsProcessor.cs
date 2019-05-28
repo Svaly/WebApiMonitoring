@@ -16,10 +16,7 @@ namespace Framework.Logs.Logger
 
         public async Task ProcessAsync()
         {
-            while (_logsQueue.TryDequeue(out var log))
-            {
-                await _logsDispatcher.DispatchAsync(log);
-            }
+            while (_logsQueue.TryDequeue(out var log)) await _logsDispatcher.DispatchAsync(log);
         }
     }
 }

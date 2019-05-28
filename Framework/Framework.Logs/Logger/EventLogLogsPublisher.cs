@@ -14,23 +14,16 @@ namespace Framework.Logs.Logger
             var serializedLog = JsonConvert.SerializeObject(log);
 
             if (serializedLog.Length > SystemLogSize)
-            {
                 CommitLogInBatches(serializedLog);
-            }
-            else if (serializedLog.Length > 0)
-            {
-                CommitLog(serializedLog);
-            }
+            else if (serializedLog.Length > 0) CommitLog(serializedLog);
 
             return Task.CompletedTask;
         }
 
         private void CommitLogInBatches(string message)
         {
-            for (int i = 0; i < message.Length; i += SystemLogSize)
-            {
+            for (var i = 0; i < message.Length; i += SystemLogSize)
                 CommitLog(message.Substring(i, Math.Min(SystemLogSize, message.Length - i)));
-            }
         }
 
         private void CommitLog(string message)

@@ -1,6 +1,6 @@
-﻿using Framework.Patterns.Validation;
+﻿using System.Text;
+using Framework.Patterns.Validation;
 using Newtonsoft.Json;
-using System.Text;
 
 namespace Framework.Messaging.Converters
 {

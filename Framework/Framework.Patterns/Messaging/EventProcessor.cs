@@ -1,14 +1,14 @@
-﻿using Framework.Patterns.Ioc;
+﻿using System;
+using Framework.Patterns.Ioc;
 using Framework.Patterns.Loging;
-using System;
 
 namespace Framework.Patterns.Messaging
 {
     public class EventProcessor : IEventProcessor
     {
         private readonly IEventQueue _eventQueue;
-        private readonly IDependencyResolver _resolver;
         private readonly IExecutionScope _executionScope;
+        private readonly IDependencyResolver _resolver;
 
         public EventProcessor(IEventQueue eventQueue, IDependencyResolver resolver, IExecutionScope executionScope)
         {
@@ -46,7 +46,7 @@ namespace Framework.Patterns.Messaging
 
             var handler = _resolver.GetService(handlerType);
             var handlerMethod = handler.GetType().GetMethod("Handle");
-            handlerMethod?.Invoke(handler, new object[] { @event });
+            handlerMethod?.Invoke(handler, new object[] {@event});
         }
     }
 }

@@ -16,17 +16,15 @@ namespace WebApi.Config
         }
 
         protected override Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request, CancellationToken cancellationToken)
+            HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             // Important: Trigger the creation of the scope.
             request.GetDependencyScope();
 
             var handler = _container.GetInstance<THandler>();
 
-            if (!object.ReferenceEquals(handler.InnerHandler, this.InnerHandler))
-            {
-                handler.InnerHandler = this.InnerHandler;
-            }
+            if (!ReferenceEquals(handler.InnerHandler, InnerHandler)) handler.InnerHandler = InnerHandler;
 
             var invoker = new HttpMessageInvoker(handler);
 

@@ -1,8 +1,8 @@
-﻿using Framework.Messaging.Publish;
+﻿using System;
+using Framework.Messaging.Publish;
 using Framework.Patterns.Messaging;
 using Identity.Domain.Aggregates;
 using Identity.Domain.Events;
-using System;
 
 namespace Identity.Domain.Contracts.IntegrationEvents
 {
@@ -10,10 +10,7 @@ namespace Identity.Domain.Contracts.IntegrationEvents
     {
         public string GetRoutingKey(IEvent @event)
         {
-            if (@event is UserCreatedEvent)
-            {
-                return "User.Created";
-            }
+            if (@event is UserCreatedEvent) return "User.Created";
 
             throw new ArgumentException();
         }

@@ -1,8 +1,8 @@
-﻿using Catalog.Domain.Contracts.Commands;
-using Framework.Monitoring;
-using Framework.Patterns.Cqrs;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
+using Catalog.Domain.Contracts.Commands;
+using Framework.Patterns.Cqrs;
+using Framework.Patterns.Monitoring;
 
 namespace WebApi.Controllers
 {

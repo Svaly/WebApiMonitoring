@@ -2,7 +2,7 @@
 using System.Net;
 using Framework.Patterns.Loging;
 
-namespace Framework.Monitoring
+namespace Framework.Patterns.Monitoring
 {
     public class WebRequestProcessingLog : Log
     {

@@ -9,7 +9,7 @@ namespace Framework.Patterns.Cqrs
         //void SetChainOfCallsMetadata(Guid correlationId, Guid causationId);
 
         // Guid CorrelationId { get; }
-        
+
         // Guid CausationId { get; }
     }
 }

@@ -1,6 +1,5 @@
-﻿using Framework.Monitoring;
+﻿using System.Web.Http;
 using Swashbuckle.Application;
-using System.Web.Http;
 
 namespace WebApi.App_Data
 {

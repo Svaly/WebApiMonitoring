@@ -1,8 +1,6 @@
-﻿using Framework.Patterns.Ioc;
+﻿using System;
+using Framework.Patterns.Ioc;
 using SimpleInjector;
-using System;
-using System.Linq;
-using Framework.Patterns.Messaging;
 
 namespace WebApi.Config
 {
@@ -18,7 +16,7 @@ namespace WebApi.Config
         public T GetService<T>()
             where T : class
         {
-           return _container.GetInstance<T>();
+            return _container.GetInstance<T>();
         }
 
         public object GetService(Type type)

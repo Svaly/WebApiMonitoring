@@ -4,33 +4,31 @@ using System.Configuration;
 
 namespace Framework.Messaging.Kafka.Configuration
 {
-    public sealed class KafkaCoreSettingsConfigurationCollection : ConfigurationElementCollection, IEnumerable<KafkaCoreConfigurationElement>
-     {
+    public sealed class KafkaCoreSettingsConfigurationCollection : ConfigurationElementCollection,
+        IEnumerable<KafkaCoreConfigurationElement>
+    {
         private const string PropertyName = "config";
 
         public override ConfigurationElementCollectionType CollectionType => ConfigurationElementCollectionType.BasicMapAlternate;
 
         protected override string ElementName => PropertyName;
 
-        public KafkaCoreConfigurationElement this[int idx] => (KafkaCoreConfigurationElement)BaseGet(idx);
+        public KafkaCoreConfigurationElement this[int idx] => (KafkaCoreConfigurationElement) BaseGet(idx);
+
+        public new IEnumerator<KafkaCoreConfigurationElement> GetEnumerator()
+        {
+            foreach (var key in BaseGetAllKeys()) yield return (KafkaCoreConfigurationElement) BaseGet(key);
+        }
 
         public override bool IsReadOnly()
-         {
-             return false;
-         }
+        {
+            return false;
+        }
 
-         public void Add(ConfigurationElement element)
-         {
-             BaseAdd(element);
-         }
-
-         public new IEnumerator<KafkaCoreConfigurationElement> GetEnumerator()
-         {
-             foreach (var key in BaseGetAllKeys())
-             {
-                 yield return (KafkaCoreConfigurationElement)BaseGet(key);
-             }
-         }
+        public void Add(ConfigurationElement element)
+        {
+            BaseAdd(element);
+        }
 
         protected override bool IsElementName(string elementName)
         {
@@ -44,7 +42,7 @@ namespace Framework.Messaging.Kafka.Configuration
 
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((KafkaCoreConfigurationElement)element).PublishClientId;
+            return ((KafkaCoreConfigurationElement) element).PublishClientId;
         }
     }
 }

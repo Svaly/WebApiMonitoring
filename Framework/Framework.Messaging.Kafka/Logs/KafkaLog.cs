@@ -1,6 +1,6 @@
-﻿using Framework.Patterns.Loging;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Framework.Patterns.Loging;
 
 namespace Framework.Messaging.Kafka.Logs
 {

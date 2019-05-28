@@ -10,15 +10,9 @@ namespace Catalog.Domain.Contracts.IntegrationEvents
     {
         public string GetRoutingKey(IEvent @event)
         {
-            if (@event is ProductAddedToCartEvent)
-            {
-                return "Product.Added.To.Cart";
-            }
+            if (@event is ProductAddedToCartEvent) return "Product.Added.To.Cart";
 
-            if (@event is ProductLikedEvent)
-            {
-                return "Product.Liked";
-            }
+            if (@event is ProductLikedEvent) return "Product.Liked";
 
             throw new ArgumentException();
         }

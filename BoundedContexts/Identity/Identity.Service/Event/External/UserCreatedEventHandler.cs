@@ -9,7 +9,7 @@ namespace Identity.Handlers.Event.External
         public void Handle(UserCreatedEvent @event)
         {
             Debug.WriteLine("User Created Event Handled");
-         //   throw new System.NotImplementedException("UserCreatedEvent");
+            //   throw new System.NotImplementedException("UserCreatedEvent");
         }
     }
 }

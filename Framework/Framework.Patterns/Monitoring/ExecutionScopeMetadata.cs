@@ -1,6 +1,7 @@
 ﻿using System;
+using Framework.Patterns.Loging;
 
-namespace Framework.Patterns.Loging
+namespace Framework.Patterns.Monitoring
 {
     public sealed class ExecutionScopeMetadata
     {

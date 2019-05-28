@@ -1,5 +1,5 @@
-﻿using Confluent.Kafka;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Confluent.Kafka;
 
 namespace Framework.Messaging.Kafka.Extensions
 {

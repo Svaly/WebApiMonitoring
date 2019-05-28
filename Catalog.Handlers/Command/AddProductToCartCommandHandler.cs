@@ -1,10 +1,10 @@
-﻿using Catalog.Domain.Aggregates;
+﻿using System;
+using System.Threading.Tasks;
+using Catalog.Domain.Aggregates;
 using Catalog.Domain.Contracts.Commands;
 using Catalog.Domain.Events;
 using Framework.Patterns.Cqrs;
 using Framework.Patterns.Messaging;
-using System;
-using System.Threading.Tasks;
 
 namespace Catalog.Handlers.Command
 {
@@ -19,10 +19,12 @@ namespace Catalog.Handlers.Command
 
         public Task HandleAsync(AddProductToCartCommand command)
         {
-            return Task.Run(() => {
-                var @event = new ProductAddedToCartEvent(command.CommandId, Guid.NewGuid());
-                _integrationEventPublisher.Publish(@event);
-            });
+            return Task.Run(
+                () =>
+                {
+                    var @event = new ProductAddedToCartEvent(command.CommandId, Guid.NewGuid());
+                    _integrationEventPublisher.Publish(@event);
+                });
         }
     }
 }

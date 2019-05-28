@@ -29,14 +29,10 @@ namespace Framework.Patterns.Loging
         private void Validate(string processingScope)
         {
             if (string.IsNullOrEmpty(processingScope))
-            {
                 throw new ArgumentNullException(processingScope, "Processing scope cannot be null");
-            }
 
             if (!AvailableProcessingScopes.Contains(processingScope))
-            {
                 throw new ArgumentException($"Invalid processing scope: {processingScope}");
-            }
         }
     }
 }

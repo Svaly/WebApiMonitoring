@@ -7,9 +7,9 @@ namespace Framework.Messaging.Kafka.Consume
     public sealed class KafkaConsumerFactory : IKafkaConsumerFactory
     {
         public IConsumer<string, string> CreateConsumer(
-          KafkaConnectionConfigModel connectionConfig,
-          Action<IConsumer<string, string>, LogMessage> consumerLogHandler,
-          Action<IConsumer<string, string>, Error> consumerErrorHandler)
+            KafkaConnectionConfigModel connectionConfig,
+            Action<IConsumer<string, string>, LogMessage> consumerLogHandler,
+            Action<IConsumer<string, string>, Error> consumerErrorHandler)
         {
             var consumerConfig = CreateConsumerConfig(connectionConfig);
             ConfigureSsl(consumerConfig, connectionConfig);
@@ -32,10 +32,7 @@ namespace Framework.Messaging.Kafka.Consume
 
         private void ConfigureDebugging(ConsumerConfig consumerConfig, KafkaConnectionConfigModel connectionConfig)
         {
-            if (connectionConfig.DebugMessagesEnabled)
-            {
-                consumerConfig.Debug = "all";
-            }
+            if (connectionConfig.DebugMessagesEnabled) consumerConfig.Debug = "all";
         }
 
         private void ConfigureSsl(ConsumerConfig consumerConfig, KafkaConnectionConfigModel connectionConfig)

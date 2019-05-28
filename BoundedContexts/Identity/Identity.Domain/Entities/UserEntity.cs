@@ -2,8 +2,5 @@
 {
     public sealed class UserEntity
     {
-        public UserEntity()
-        {
-        }
     }
 }

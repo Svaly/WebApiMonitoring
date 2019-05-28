@@ -1,5 +1,5 @@
-﻿using Framework.Patterns.Loging;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Framework.Patterns.Loging;
 
 namespace Framework.Patterns.Messaging
 {
@@ -29,19 +29,6 @@ namespace Framework.Patterns.Messaging
             }
         }
 
-        private void EnrichEvent(IEvent @event)
-        {
-            if (_executionScope.CurrentScopeMetadata is null)
-            {
-                return;
-            }
-
-            @event.CorrelationId = _executionScope.CurrentScopeMetadata.CorrelationId;
-            @event.CausationId = _executionScope.CurrentScopeMetadata.CausationId;
-            @event.ApplicationName = _executionScope.CurrentScopeMetadata.ApplicationName;
-            @event.ProcessingScope = _executionScope.CurrentScopeMetadata.ProcessingScope.Value;
-        }
-
 
         public void Send(Queue<IEvent> events)
         {
@@ -53,5 +40,14 @@ namespace Framework.Patterns.Messaging
             }
         }
 
+        private void EnrichEvent(IEvent @event)
+        {
+            if (_executionScope.CurrentScopeMetadata is null) return;
+
+            @event.CorrelationId = _executionScope.CurrentScopeMetadata.CorrelationId;
+            @event.CausationId = _executionScope.CurrentScopeMetadata.CausationId;
+            @event.ApplicationName = _executionScope.CurrentScopeMetadata.ApplicationName;
+            @event.ProcessingScope = _executionScope.CurrentScopeMetadata.ProcessingScope.Value;
+        }
     }
 }

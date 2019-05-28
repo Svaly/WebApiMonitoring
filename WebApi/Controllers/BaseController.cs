@@ -1,16 +1,16 @@
-﻿using Framework.Patterns.Cqrs;
-using Framework.Patterns.Loging;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Framework.Monitoring;
+using Framework.Patterns.Cqrs;
+using Framework.Patterns.Loging;
+using Framework.Patterns.Monitoring;
 
 namespace WebApi.Controllers
 {
     public abstract class BaseController : ApiController
     {
-        protected readonly ICommandDispatcher CommandDispatcher;
         private readonly IMonitoringLogsPublisher _logsPublisher;
+        protected readonly ICommandDispatcher CommandDispatcher;
 
         protected BaseController(
             ICommandDispatcher commandDispatcher,

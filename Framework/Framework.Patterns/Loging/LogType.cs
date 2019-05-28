@@ -16,13 +16,6 @@ namespace Framework.Patterns.Loging
             _domainEvent, _information, _exception, _webRequestProcessingLog, _messagingEventProcessingLog
         };
 
-        public LogType(string logType)
-        {
-            Validate(logType);
-
-            Value = logType;
-        }
-
         public static LogType MessagingEventProcessingLog = new LogType(_messagingEventProcessingLog);
 
         public static LogType Information = new LogType(_information);
@@ -30,6 +23,13 @@ namespace Framework.Patterns.Loging
         public static LogType Exception = new LogType(_exception);
 
         public static LogType WebRequestProcessingLog = new LogType(_webRequestProcessingLog);
+
+        public LogType(string logType)
+        {
+            Validate(logType);
+
+            Value = logType;
+        }
 
         public static LogType DomainEvent => new LogType(_domainEvent);
 

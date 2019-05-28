@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Logs", "Framework
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Patterns", "Framework\Framework.Patterns\Framework.Patterns.csproj", "{71B541AC-2B1D-42AA-8351-4EF95E25F2D9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Monitoring", "Framework\Framework.Monitoring\Framework.Monitoring.csproj", "{704DB737-2F57-4C87-BF9F-27AC244ADCB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.WebApi", "Framework\Framework.Monitoring\Framework.WebApi.csproj", "{704DB737-2F57-4C87-BF9F-27AC244ADCB9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework.Messaging.Kafka", "Framework\Framework.Messaging.Kafka\Framework.Messaging.Kafka.csproj", "{0BEB062D-9E9D-40CB-A826-82303C024E71}"
 EndProject

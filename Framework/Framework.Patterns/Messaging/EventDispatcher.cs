@@ -24,7 +24,7 @@ namespace Framework.Patterns.Messaging
 
             var handler = _resolver.GetService(handlerType);
             var handlerMethod = handler.GetType().GetMethod("Handle");
-            handlerMethod?.Invoke(handler, new object[] { @event });
+            handlerMethod?.Invoke(handler, new object[] {@event});
         }
     }
 }

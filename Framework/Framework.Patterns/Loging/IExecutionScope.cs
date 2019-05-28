@@ -1,5 +1,6 @@
 ﻿using System;
 using Framework.Patterns.Messaging;
+using Framework.Patterns.Monitoring;
 
 namespace Framework.Patterns.Loging
 {
@@ -12,6 +13,5 @@ namespace Framework.Patterns.Loging
         void StartScope(IEvent @event);
 
         void UnwindScope();
-
     }
 }

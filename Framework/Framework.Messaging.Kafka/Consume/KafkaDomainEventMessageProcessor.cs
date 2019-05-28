@@ -6,9 +6,9 @@ namespace Framework.Messaging.Kafka.Consume
 {
     public sealed class KafkaDomainEventMessageProcessor : IKafkaConsumedMessageProcessor
     {
-        private readonly IEventRoutingEventsMappingProvider _eventRoutingEventsMappingProvider;
-        private readonly IEventPublisher _eventPublisher;
         private readonly IEventProcessor _eventProcessor;
+        private readonly IEventPublisher _eventPublisher;
+        private readonly IEventRoutingEventsMappingProvider _eventRoutingEventsMappingProvider;
 
         public KafkaDomainEventMessageProcessor(
             IEventRoutingEventsMappingProvider eventRoutingEventsMappingProvider,
@@ -25,10 +25,7 @@ namespace Framework.Messaging.Kafka.Consume
             var eventsMapping = _eventRoutingEventsMappingProvider.GetMapping(connectionName);
             var @event = eventsMapping.GetEvent(message.Key, message.Value);
 
-            if (@event != null)
-            {
-                _eventPublisher.Send(@event);
-            }
+            if (@event != null) _eventPublisher.Send(@event);
 
             _eventProcessor.Process();
         }

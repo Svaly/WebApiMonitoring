@@ -1,16 +1,16 @@
-﻿using Framework.Messaging.Kafka.Publish;
-using Framework.Messaging.Publish;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Framework.Messaging.Kafka.Publish;
+using Framework.Messaging.Publish;
 
 namespace Framework.Messaging.Kafka
 {
     public sealed class KafkaIntegrationEventsProcessor : IKafkaIntegrationEventsProcessor
     {
-        private readonly IIntegrationEventPublisherInMemoryMessageQueue _messageQueue;
-        private readonly IKafkaPublisher _kafkaPublisher;
         private readonly string _defaultPublishConnectionName;
+        private readonly IKafkaPublisher _kafkaPublisher;
+        private readonly IIntegrationEventPublisherInMemoryMessageQueue _messageQueue;
 
         public KafkaIntegrationEventsProcessor(
             IDefaultPublishConnectionNameProvider defaultPublishConnectionNameProvider,
@@ -34,10 +34,7 @@ namespace Framework.Messaging.Kafka
         {
             var messages = new Queue<KeyValuePair<string, string>>();
 
-            while (_messageQueue.TryDequeue(out var message))
-            {
-                messages.Enqueue(message);
-            }
+            while (_messageQueue.TryDequeue(out var message)) messages.Enqueue(message);
 
             return messages;
         }

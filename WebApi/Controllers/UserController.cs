@@ -1,8 +1,8 @@
-﻿using Framework.Monitoring;
-using Framework.Patterns.Cqrs;
-using Identity.Domain.Contracts.Commands;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
+using Framework.Patterns.Cqrs;
+using Framework.Patterns.Monitoring;
+using Identity.Domain.Contracts.Commands;
 
 namespace WebApi.Controllers
 {

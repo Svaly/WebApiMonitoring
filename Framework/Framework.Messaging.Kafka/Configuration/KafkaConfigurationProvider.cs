@@ -1,8 +1,8 @@
-﻿using Framework.Messaging.Configuration;
-using Framework.Messaging.Kafka.Exceptions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using Framework.Messaging.Configuration;
+using Framework.Messaging.Kafka.Exceptions;
 
 namespace Framework.Messaging.Kafka.Configuration
 {
@@ -14,10 +14,7 @@ namespace Framework.Messaging.Kafka.Configuration
         {
             _configuration = ConfigurationManager.GetSection("kafkaConnections") as KafkaConnectionConfigurationSection;
 
-            if (_configuration is null)
-            {
-                throw new MissingKafkaConnectionConfigurationSectionException();
-            }
+            if (_configuration is null) throw new MissingKafkaConnectionConfigurationSectionException();
         }
 
         public IConnectionConfigurationModel GetConsumeConnectionConfiguration(string connectionName)
@@ -49,14 +46,13 @@ namespace Framework.Messaging.Kafka.Configuration
             return _configuration.CoreConfiguration;
         }
 
-        private KafkaConnectionConfigurationElement GetConnectionConfig(IEnumerable<KafkaConnectionConfigurationElement> elements, string connectionName)
+        private KafkaConnectionConfigurationElement GetConnectionConfig(
+            IEnumerable<KafkaConnectionConfigurationElement> elements,
+            string connectionName)
         {
             var connectionConfig = elements.SingleOrDefault(c => c.ConnectionName == connectionName);
 
-            if (connectionConfig == null)
-            {
-                throw new KafkaConnectionConfigNotFoundException(connectionName);
-            }
+            if (connectionConfig == null) throw new KafkaConnectionConfigNotFoundException(connectionName);
 
             return connectionConfig;
         }

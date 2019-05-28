@@ -1,13 +1,11 @@
 ﻿using Framework.Patterns.Loging;
-using Newtonsoft.Json;
-using System.Diagnostics;
 
-namespace Framework.Monitoring
+namespace Framework.Patterns.Monitoring
 {
     public sealed class MonitoringLogsPublisher : IMonitoringLogsPublisher
     {
-        private readonly ILogsPublisher _logger;
         private readonly IExecutionScope _executionScope;
+        private readonly ILogsPublisher _logger;
 
         public MonitoringLogsPublisher(IExecutionScope executionScope, ILogsPublisher logger)
         {
@@ -23,6 +21,8 @@ namespace Framework.Monitoring
 
         private void EnrichLog(ILog log)
         {
+            if (_executionScope.CurrentScopeMetadata == null) return;
+
             log.CausationId = _executionScope.CurrentScopeMetadata.CausationId;
             log.CorrelationId = _executionScope.CurrentScopeMetadata.CorrelationId;
             log.ProcessingScope = _executionScope.CurrentScopeMetadata.ProcessingScope.Value;

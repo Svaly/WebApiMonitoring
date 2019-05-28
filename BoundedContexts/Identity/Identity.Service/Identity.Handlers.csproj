@@ -17,9 +17,6 @@
     <None Remove="QueryHandler - Copy\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\Framework\Framework.Messaging\Framework.Messaging.csproj" />
     <ProjectReference Include="..\..\..\Framework\Framework.Patterns\Framework.Patterns.csproj" />
     <ProjectReference Include="..\Identity.Infrastructure\Identity.Domain.Infrastructure.csproj" />

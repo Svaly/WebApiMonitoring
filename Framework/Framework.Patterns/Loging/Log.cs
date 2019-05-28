@@ -13,9 +13,9 @@ namespace Framework.Patterns.Loging
             LogType = GetType().ToString();
         }
 
-        public Guid LogId { get; }
-
         public string Message { get; }
+
+        public Guid LogId { get; }
 
         public string LogType { get; }
 

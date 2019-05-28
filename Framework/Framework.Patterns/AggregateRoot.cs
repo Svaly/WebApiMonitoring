@@ -1,5 +1,5 @@
-﻿using Framework.Patterns.Messaging;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Framework.Patterns.Messaging;
 
 namespace Framework.Patterns
 {
@@ -10,11 +10,11 @@ namespace Framework.Patterns
             Events = new Queue<IEvent>();
         }
 
+        public Queue<IEvent> Events { get; }
+
         protected void Enqueue(IEvent @event)
         {
             Events.Enqueue(@event);
         }
-
-        public Queue<IEvent> Events { get; }
     }
 }

@@ -1,24 +1,25 @@
-﻿using Framework.Messaging.Converters;
+﻿using System.Collections.Generic;
+using Framework.Messaging.Converters;
 using Framework.Messaging.Publish;
 using Framework.Patterns;
-using Framework.Patterns.Messaging;
-using System.Collections.Generic;
 using Framework.Patterns.Loging;
+using Framework.Patterns.Messaging;
 
 namespace Framework.Messaging.Kafka
 {
     public sealed class KafkaIntegrationEventPublisher<TEntity> : IKafkaIntegrationEventPublisher<TEntity>
         where TEntity : IAggregateRoot
     {
-        private readonly IIntegrationEventPublisherInMemoryMessageQueue _messageQueue;
         private readonly IEventRoutingKeysMapping<TEntity> _eventRoutingKeysMapping;
-        private readonly IObjectSerializer _objectSerializer;
         private readonly IExecutionScope _executionScope;
+        private readonly IIntegrationEventPublisherInMemoryMessageQueue _messageQueue;
+        private readonly IObjectSerializer _objectSerializer;
 
         public KafkaIntegrationEventPublisher(
             IEventRoutingKeysMapping<TEntity> eventRoutingKeysMapping,
             IObjectSerializer objectSerializer,
-            IIntegrationEventPublisherInMemoryMessageQueue messageQueue, IExecutionScope executionScope)
+            IIntegrationEventPublisherInMemoryMessageQueue messageQueue,
+            IExecutionScope executionScope)
         {
             _eventRoutingKeysMapping = eventRoutingKeysMapping;
             _objectSerializer = objectSerializer;

@@ -19,11 +19,12 @@ namespace Catalog.Handlers.Command
 
         public Task HandleAsync(LikeProductCommand command)
         {
-            return Task.Run(() =>
-            {
-                var @event = new ProductLikedEvent(command.CommandId, Guid.NewGuid());
-                _integrationEventPublisher.Publish(@event);
-            });
+            return Task.Run(
+                () =>
+                {
+                    var @event = new ProductLikedEvent(command.CommandId, Guid.NewGuid());
+                    _integrationEventPublisher.Publish(@event);
+                });
         }
     }
 }

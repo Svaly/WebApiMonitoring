@@ -1,6 +1,6 @@
-﻿using Confluent.Kafka;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Confluent.Kafka;
 
 namespace Framework.Messaging.Kafka.Logs
 {

@@ -1,8 +1,8 @@
-﻿using Framework.Messaging.Kafka.Consume;
+﻿using System;
+using System.Collections.Generic;
+using Framework.Messaging.Kafka.Consume;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
-using System;
-using System.Collections.Generic;
 
 namespace WebApi.Messaging
 {
@@ -11,7 +11,9 @@ namespace WebApi.Messaging
         private readonly Container _container;
         private readonly Func<IKafkaConsumedMessageProcessor> _kafkaConsumedMessageProcessor;
 
-        public KafkaIntegrationMessageProcessorProxy(Container container, Func<IKafkaConsumedMessageProcessor> kafkaConsumedMessageProcessor)
+        public KafkaIntegrationMessageProcessorProxy(
+            Container container,
+            Func<IKafkaConsumedMessageProcessor> kafkaConsumedMessageProcessor)
         {
             _container = container;
             _kafkaConsumedMessageProcessor = kafkaConsumedMessageProcessor;

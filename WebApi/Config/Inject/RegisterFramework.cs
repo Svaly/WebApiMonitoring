@@ -1,12 +1,12 @@
 ﻿using Framework.Logs.Logger;
 using Framework.Messaging.Kafka.Consume;
-using Framework.Monitoring;
 using Framework.Patterns.Application;
 using Framework.Patterns.Cqrs;
 using Framework.Patterns.Cqrs.Implementation;
 using Framework.Patterns.Ioc;
 using Framework.Patterns.Loging;
 using Framework.Patterns.Messaging;
+using Framework.Patterns.Monitoring;
 using SimpleInjector;
 using WebApi.Messaging;
 

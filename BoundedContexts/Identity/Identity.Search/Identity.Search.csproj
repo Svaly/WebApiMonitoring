@@ -12,9 +12,6 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="QueryHandler\" />
     <Folder Include="Query\" />

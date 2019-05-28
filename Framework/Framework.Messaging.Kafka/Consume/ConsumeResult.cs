@@ -1,10 +1,12 @@
-﻿namespace Framework.Messaging.Kafka.Consume
+﻿using Confluent.Kafka;
+
+namespace Framework.Messaging.Kafka.Consume
 {
     public class ConsumeResult
     {
         private readonly Confluent.Kafka.ConsumeResult<string, string> _consumeResult;
 
-        public ConsumeResult(Confluent.Kafka.ConsumeResult<string, string> consumeResult)
+        public ConsumeResult(ConsumeResult<string, string> consumeResult)
         {
             _consumeResult = consumeResult;
         }
@@ -32,7 +34,7 @@
         // Summary:
         //     The Kafka message, or null if this ConsumeResult instance represents an end of
         //     partition event.
-        public Confluent.Kafka.Message<string, string> Message => _consumeResult.Message;
+        public Message<string, string> Message => _consumeResult.Message;
 
         // Summary:
         //     The Kafka message Key.
@@ -44,11 +46,11 @@
 
         // Summary:
         //     The Kafka message timestamp.
-        public Confluent.Kafka.Timestamp Timestamp => _consumeResult.Timestamp;
+        public Timestamp Timestamp => _consumeResult.Timestamp;
 
         // Summary:
         //     The Kafka message headers.
-        public Confluent.Kafka.Headers Headers => _consumeResult.Headers;
+        public Headers Headers => _consumeResult.Headers;
 
         // Summary:
         //     True if this instance represents an end of partition event, false if it represents

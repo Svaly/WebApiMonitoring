@@ -8,11 +8,11 @@ namespace Framework.Messaging.Kafka.Logs
 {
     public sealed class KafkaLogger : IKafkaLogger
     {
-        private readonly ILogsPublisher _logsPublisher;
+        private readonly List<string> _debugMessages;
         private readonly List<string> _errors;
         private readonly List<Exception> _exceptions;
-        private readonly List<string> _debugMessages;
         private readonly List<KeyValuePair<string, string>> _failedMessages;
+        private readonly ILogsPublisher _logsPublisher;
 
         public KafkaLogger(ILogsPublisher logsPublisher)
         {
@@ -25,13 +25,14 @@ namespace Framework.Messaging.Kafka.Logs
 
         public void AppendMessageToLog(LogMessage logMessage)
         {
-            var message = $"{logMessage.Name}; {(int)logMessage.Level} - {logMessage.Level}; {logMessage.Facility}; {logMessage.Message};";
+            var message =
+                $"{logMessage.Name}; {(int) logMessage.Level} - {logMessage.Level}; {logMessage.Facility}; {logMessage.Message};";
             _debugMessages.Add(message);
         }
 
         public void AppendErrorToLog(Error error)
         {
-            var message = $"Kafka error occurred; Code: {(int)error.Code} {error.Code}; Reason: {error.Reason};";
+            var message = $"Kafka error occurred; Code: {(int) error.Code} {error.Code}; Reason: {error.Reason};";
             _errors.Add(message);
         }
 
@@ -49,12 +50,26 @@ namespace Framework.Messaging.Kafka.Logs
         {
             if (_exceptions.Any() || _errors.Any())
             {
-                var log = new KafkaLog(LogLevel.Error, kafkaLogType, message, _errors.ToArray(), _exceptions.ToArray(), _debugMessages.ToArray(), _failedMessages.ToArray());
+                var log = new KafkaLog(
+                    LogLevel.Error,
+                    kafkaLogType,
+                    message,
+                    _errors.ToArray(),
+                    _exceptions.ToArray(),
+                    _debugMessages.ToArray(),
+                    _failedMessages.ToArray());
                 _logsPublisher.Publish(log);
             }
             else if (_debugMessages.Any())
             {
-                var log = new KafkaLog(LogLevel.Debug, kafkaLogType, message, _errors.ToArray(), _exceptions.ToArray(), _debugMessages.ToArray(), _failedMessages.ToArray());
+                var log = new KafkaLog(
+                    LogLevel.Debug,
+                    kafkaLogType,
+                    message,
+                    _errors.ToArray(),
+                    _exceptions.ToArray(),
+                    _debugMessages.ToArray(),
+                    _failedMessages.ToArray());
                 _logsPublisher.Publish(log);
             }
 

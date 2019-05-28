@@ -1,23 +1,26 @@
-﻿using Confluent.Kafka;
-using Framework.Messaging.Kafka.Configuration;
-using Framework.Messaging.Kafka.Logs;
-using Framework.Patterns.Validation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Confluent.Kafka;
+using Framework.Messaging.Kafka.Configuration;
+using Framework.Messaging.Kafka.Logs;
+using Framework.Patterns.Validation;
 
 namespace Framework.Messaging.Kafka.Publish
 {
     public sealed class KafkaPublisher : IKafkaPublisher
     {
-        private readonly IKafkaPublisherFactory _kafkaPublisherFactory;
-        private readonly IKafkaLogger _kafkaLogger;
         private readonly IKafkaConfigurationProvider _kafkaConfigurationProvider;
+        private readonly IKafkaLogger _kafkaLogger;
+        private readonly IKafkaPublisherFactory _kafkaPublisherFactory;
         private KafkaConnectionConfigModel _connectionConfig;
         private int _topicPartitionNumber;
 
-        public KafkaPublisher(IKafkaPublisherFactory kafkaPublisherFactory, IKafkaLogger kafkaLogger, IKafkaConfigurationProvider kafkaConfigurationProvider)
+        public KafkaPublisher(
+            IKafkaPublisherFactory kafkaPublisherFactory,
+            IKafkaLogger kafkaLogger,
+            IKafkaConfigurationProvider kafkaConfigurationProvider)
         {
             _topicPartitionNumber = 0;
             _kafkaPublisherFactory = kafkaPublisherFactory;
@@ -25,17 +28,17 @@ namespace Framework.Messaging.Kafka.Publish
             _kafkaConfigurationProvider = kafkaConfigurationProvider;
         }
 
-        public async Task PublishAsync(string connectionName, KeyValuePair<string, string> message) => await PublishAsync(connectionName, new[] { message });
+        public async Task PublishAsync(string connectionName, KeyValuePair<string, string> message)
+        {
+            await PublishAsync(connectionName, new[] {message});
+        }
 
         public async Task PublishAsync(string connectionName, IEnumerable<KeyValuePair<string, string>> messages)
         {
             Guard.NotNull(() => connectionName, connectionName);
             Guard.NotNull(() => messages, messages);
 
-            if (!ValidateConnectionConfig(connectionName))
-            {
-                return;
-            }
+            if (!ValidateConnectionConfig(connectionName)) return;
 
             using (var producer = CreateProducer())
             {
@@ -56,19 +59,19 @@ namespace Framework.Messaging.Kafka.Publish
             return _kafkaPublisherFactory.CreateProducer(_connectionConfig, ProducerLogHandler, ProducerErrorHandler);
         }
 
-        private async Task<bool> PublishMessagesAsync(IEnumerable<KeyValuePair<string, string>> messages, IProducer<string, string> producer)
+        private async Task<bool> PublishMessagesAsync(
+            IEnumerable<KeyValuePair<string, string>> messages,
+            IProducer<string, string> producer)
         {
             var kafkaMessages = ConvertKeyValuePairsToKafkaMessages(messages);
-            int failedMessages = 0;
+            var failedMessages = 0;
 
             foreach (var message in kafkaMessages)
-            {
                 if (!await PublishMessageAsync(message, producer))
                 {
                     failedMessages++;
                     _kafkaLogger.AppendFailedMessageToLog(new KeyValuePair<string, string>(message.Key, message.Value));
                 }
-            }
 
             return failedMessages == 0 || failedMessages != kafkaMessages.Count;
         }
@@ -78,7 +81,6 @@ namespace Framework.Messaging.Kafka.Publish
             var retryCounter = 0;
 
             while (retryCounter < _connectionConfig.RetryCount)
-            {
                 try
                 {
                     await PublishAsync(message, producer);
@@ -89,12 +91,13 @@ namespace Framework.Messaging.Kafka.Publish
                     retryCounter++;
                     _kafkaLogger.AppendExceptionToLog(e);
                 }
-            }
 
             return false;
         }
 
-        private async Task<DeliveryResult<string, string>> PublishAsync(Message<string, string> message, IProducer<string, string> producer)
+        private async Task<DeliveryResult<string, string>> PublishAsync(
+            Message<string, string> message,
+            IProducer<string, string> producer)
         {
             if (_connectionConfig.SinglePartitionPublishPolicyEnabled)
             {
@@ -105,19 +108,27 @@ namespace Framework.Messaging.Kafka.Publish
             return await producer.ProduceAsync(_connectionConfig.Topic, message);
         }
 
-        private void ProducerErrorHandler(IProducer<string, string> sender, Error error) => _kafkaLogger.AppendErrorToLog(error);
+        private void ProducerErrorHandler(IProducer<string, string> sender, Error error)
+        {
+            _kafkaLogger.AppendErrorToLog(error);
+        }
 
-        private void ProducerLogHandler(IProducer<string, string> sender, LogMessage logMessage) => _kafkaLogger.AppendMessageToLog(logMessage);
+        private void ProducerLogHandler(IProducer<string, string> sender, LogMessage logMessage)
+        {
+            _kafkaLogger.AppendMessageToLog(logMessage);
+        }
 
         private bool ValidateConnectionConfig(string connectionName)
         {
-            _connectionConfig = _kafkaConfigurationProvider.GetPublishConnectionConfiguration(connectionName) as KafkaConnectionConfigModel;
+            _connectionConfig =
+                _kafkaConfigurationProvider.GetPublishConnectionConfiguration(connectionName) as KafkaConnectionConfigModel;
             return _connectionConfig != null && _connectionConfig.ConnectionIsEnabled;
         }
 
-        private ICollection<Message<string, string>> ConvertKeyValuePairsToKafkaMessages(IEnumerable<KeyValuePair<string, string>> messages)
+        private ICollection<Message<string, string>> ConvertKeyValuePairsToKafkaMessages(
+            IEnumerable<KeyValuePair<string, string>> messages)
         {
-            return messages.Select(m => new Message<string, string> { Key = m.Key, Value = m.Value }).ToList();
+            return messages.Select(m => new Message<string, string> {Key = m.Key, Value = m.Value}).ToList();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Framework.Messaging.Kafka.Logs
         private static readonly string _consume = "Consume";
         private static readonly string _publish = "Publish";
 
-        private static readonly string[] AvailableTypes=
+        private static readonly string[] AvailableTypes =
         {
             _consume, _publish
         };
@@ -28,14 +28,9 @@ namespace Framework.Messaging.Kafka.Logs
         private void Validate(string kafkaLogType)
         {
             if (string.IsNullOrEmpty(kafkaLogType))
-            {
                 throw new ArgumentNullException(kafkaLogType, "Kafka log type scope cannot be null");
-            }
 
-            if (!AvailableTypes.Contains(kafkaLogType))
-            {
-                throw new ArgumentException($"Invalid log type: {kafkaLogType}");
-            }
+            if (!AvailableTypes.Contains(kafkaLogType)) throw new ArgumentException($"Invalid log type: {kafkaLogType}");
         }
     }
 }

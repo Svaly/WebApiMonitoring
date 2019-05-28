@@ -6,6 +6,8 @@ namespace Framework.Messaging.Kafka.Consume
 {
     public interface IKafkaConsumer : IMessageQueueConsumer
     {
-         Task ListenInfiniteLoopAsync(KafkaConnectionConfigModel connectionConfig, IKafkaConsumedMessageProcessor kafkaConsumedMessageProcessor);
+        Task ListenInfiniteLoopAsync(
+            KafkaConnectionConfigModel connectionConfig,
+            IKafkaConsumedMessageProcessor kafkaConsumedMessageProcessor);
     }
 }

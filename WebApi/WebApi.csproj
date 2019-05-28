@@ -158,9 +158,9 @@
       <Project>{54b3b085-14c4-49a1-abe3-e9b935f464cd}</Project>
       <Name>Framework.Messaging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework\Framework.Monitoring\Framework.Monitoring.csproj">
+    <ProjectReference Include="..\Framework\Framework.Monitoring\Framework.WebApi.csproj">
       <Project>{704db737-2f57-4c87-bf9f-27ac244adcb9}</Project>
-      <Name>Framework.Monitoring</Name>
+      <Name>Framework.WebApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\Framework\Framework.Patterns\Framework.Patterns.csproj">
       <Project>{71b541ac-2b1d-42aa-8351-4ef95e25f2d9}</Project>

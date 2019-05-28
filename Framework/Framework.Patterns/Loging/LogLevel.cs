@@ -5,18 +5,10 @@ namespace Framework.Patterns.Loging
 {
     public class LogLevel
     {
-        private static string _info = "Info";
-        private static string _warn = "Warn";
-        private static string _error = "Error";
-        private static string _debug = "Debug";
-
-        public static LogLevel Info => new LogLevel(_info);
-
-        public static LogLevel Warn => new LogLevel(_warn);
-
-        public static LogLevel Error => new LogLevel(_error);
-
-        public static LogLevel Debug => new LogLevel(_debug);
+        private static readonly string _info = "Info";
+        private static readonly string _warn = "Warn";
+        private static readonly string _error = "Error";
+        private static readonly string _debug = "Debug";
 
         private readonly string[] _availableLogLevels =
         {
@@ -29,6 +21,14 @@ namespace Framework.Patterns.Loging
 
             Value = logLevel;
         }
+
+        public static LogLevel Info => new LogLevel(_info);
+
+        public static LogLevel Warn => new LogLevel(_warn);
+
+        public static LogLevel Error => new LogLevel(_error);
+
+        public static LogLevel Debug => new LogLevel(_debug);
 
         public string Value { get; }
 

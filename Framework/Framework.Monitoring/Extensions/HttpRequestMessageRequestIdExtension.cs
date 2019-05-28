@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 
-namespace Framework.Monitoring.Extensions
+namespace Framework.WebApi.Extensions
 {
     public static class HttpRequestMessageRequestIdExtension
     {

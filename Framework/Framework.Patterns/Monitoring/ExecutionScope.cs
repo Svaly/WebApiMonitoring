@@ -1,14 +1,15 @@
-﻿using Framework.Patterns.Application;
-using Framework.Patterns.Messaging;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Framework.Patterns.Application;
+using Framework.Patterns.Loging;
+using Framework.Patterns.Messaging;
 
-namespace Framework.Patterns.Loging
+namespace Framework.Patterns.Monitoring
 {
     public sealed class ExecutionScope : IExecutionScope
     {
-        private readonly Stack<ExecutionScopeMetadata> _scopeStack;
         private readonly IGlobalConfigurationProvider _globalConfigurationProvider;
+        private readonly Stack<ExecutionScopeMetadata> _scopeStack;
 
         public ExecutionScope(IGlobalConfigurationProvider globalConfigurationProvider)
         {
@@ -20,10 +21,7 @@ namespace Framework.Patterns.Loging
         {
             get
             {
-                if (_scopeStack.Count == 0)
-                {
-                    return null;
-                }
+                if (_scopeStack.Count == 0) return null;
 
                 return _scopeStack.Peek();
             }
@@ -46,7 +44,11 @@ namespace Framework.Patterns.Loging
 
         private void SetUpScopeMetadata(ProcessingScope processingScope, Guid causationId, Guid correlationId)
         {
-            var executionScopeMetadata = new ExecutionScopeMetadata(_globalConfigurationProvider.Configuration.ApplicationName, causationId, correlationId, processingScope);
+            var executionScopeMetadata = new ExecutionScopeMetadata(
+                _globalConfigurationProvider.Configuration.ApplicationName,
+                causationId,
+                correlationId,
+                processingScope);
             _scopeStack.Push(executionScopeMetadata);
         }
     }

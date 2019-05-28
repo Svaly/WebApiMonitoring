@@ -21,7 +21,9 @@ namespace Framework.Logs.Logger
 
         public async Task PublishAsync(ILog log)
         {
-             await _messagePublisher.PublishAsync("ServiceMonitoringPublishLogs", new KeyValuePair<string, string>(log.GetType().ToString(), _serializer.SerializeToJsonString(log)));
+            await _messagePublisher.PublishAsync(
+                "ServiceMonitoringPublishLogs",
+                new KeyValuePair<string, string>(log.GetType().ToString(), _serializer.SerializeToJsonString(log)));
         }
     }
 }
