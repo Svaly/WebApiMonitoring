@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Framework.Messaging.Kafka.Publish;
+using Framework.Messaging.Publish;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Framework.Messaging.Kafka.Publish;
-using Framework.Messaging.Publish;
 
 namespace Framework.Messaging.Kafka
 {
@@ -26,11 +26,11 @@ namespace Framework.Messaging.Kafka
         {
             var publishConnectionName = connectionName ?? _defaultPublishConnectionName;
 
-            var messages = GetMessagesFromQueue().ToList();
+            var messages = GetMessagesFromInMemoryQueue().ToList();
             await _kafkaPublisher.PublishAsync(publishConnectionName, messages);
         }
 
-        private IEnumerable<KeyValuePair<string, string>> GetMessagesFromQueue()
+        private IEnumerable<KeyValuePair<string, string>> GetMessagesFromInMemoryQueue()
         {
             var messages = new Queue<KeyValuePair<string, string>>();
 

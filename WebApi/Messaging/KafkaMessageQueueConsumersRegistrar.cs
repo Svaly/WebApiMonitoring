@@ -39,26 +39,5 @@ namespace WebApi.Messaging
                             }
                         }));
         }
-
-        //private static IKafkaConsumer CreateConsumer()
-        //{
-        //    var logsQueue = new LogsQueue();
-        //    var publishLogs = new LogsQueue();
-
-        //    return new
-        //        KafkaConsumer(
-        //            new KafkaConsumerFactory(),
-        //            new KafkaLogger(new LogsPublisher(logsQueue)),
-        //            new LogsProcessor(
-        //                logsQueue,
-        //                new LogsDispatcher(
-        //                    new EventLogLogsPublisher(),
-        //                    new MessageQueueLogsPublisher(
-        //                        new KafkaPublisher(
-        //                            new KafkaPublisherFactory(),
-        //                            new KafkaLogger(new LogsPublisher(new LogsQueue())),
-        //                            new KafkaConfigurationProvider()),
-        //                        new ObjectSerializer()))));
-        //}
     }
 }

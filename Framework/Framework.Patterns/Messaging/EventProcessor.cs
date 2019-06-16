@@ -28,13 +28,10 @@ namespace Framework.Patterns.Messaging
                 {
                     HandleEvent(@event);
                 }
-                catch (Exception e)
+                finally
                 {
                     _executionScope.UnwindScope();
-                    throw;
                 }
-
-                _executionScope.UnwindScope();
             }
         }
 

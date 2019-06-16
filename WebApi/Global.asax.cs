@@ -1,14 +1,13 @@
-﻿using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Framework.Messaging.Kafka.Consume;
+﻿using Framework.Messaging.Kafka.Consume;
 using Framework.WebApi;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using SimpleInjector.Lifestyles;
+using System.Web;
+using System.Web.Http;
+using System.Web.Mvc;
+using System.Web.Routing;
 using WebApi.App_Data;
-using WebApi.Config;
 using WebApi.Config.Inject;
 using WebApi.Messaging;
 
@@ -33,9 +32,9 @@ namespace WebApi
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             container.Verify();
 
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new DelegatingHandlerProxy<LogsPublishDelegatingHandler>(container));
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new DelegatingHandlerProxy<MonitoringWebApiRequestDelegatingHandler>(container));
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new DelegatingHandlerProxy<IntegrationEventsPublishDelegatingHandler>(container));
+//            GlobalConfiguration.Configuration.MessageHandlers.Add(new DelegatingHandlerProxy<LogsPublishDelegatingHandler>(container));
+//            GlobalConfiguration.Configuration.MessageHandlers.Add(new DelegatingHandlerProxy<MonitoringWebApiRequestDelegatingHandler>(container));
+//            GlobalConfiguration.Configuration.MessageHandlers.Add(new DelegatingHandlerProxy<IntegrationEventsPublishDelegatingHandler>(container));
 
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(
                 container,
