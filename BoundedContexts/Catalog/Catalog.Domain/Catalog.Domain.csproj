@@ -52,11 +52,11 @@
     <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Framework.Messaging\Framework.Messaging.csproj">
+    <ProjectReference Include="..\..\..\Framework\Framework.Messaging\Framework.Messaging.csproj">
       <Project>{54B3B085-14C4-49A1-ABE3-E9B935F464CD}</Project>
       <Name>Framework.Messaging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Framework\Framework.Patterns\Framework.Patterns.csproj">
+    <ProjectReference Include="..\..\..\Framework\Framework.Patterns\Framework.Patterns.csproj">
       <Project>{71B541AC-2B1D-42AA-8351-4EF95E25F2D9}</Project>
       <Name>Framework.Patterns</Name>
     </ProjectReference>

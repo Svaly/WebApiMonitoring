@@ -109,6 +109,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BoundedContexts\Catalog\Catalog.Domain\Catalog.Domain.csproj">
+      <Project>{B2763439-DADC-4736-980C-805B1F4B5BE1}</Project>
+      <Name>Catalog.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BoundedContexts\Identity\Identity.Domain\Identity.Domain.csproj">
       <Project>{9a7d262f-0efc-45ef-8b3e-4e9948e46702}</Project>
       <Name>Identity.Domain</Name>
@@ -124,26 +128,6 @@
     <ProjectReference Include="..\BoundedContexts\Identity\Identity.Service\Identity.Handlers.csproj">
       <Project>{a4890eaf-9fd0-406e-ac42-ebeb9088c299}</Project>
       <Name>Identity.Handlers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Catalog.Domain.Infrastructure\Catalog.Domain.Infrastructure.csproj">
-      <Project>{305b6bda-f4d7-4048-82c2-fd31991684df}</Project>
-      <Name>Catalog.Domain.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.csproj">
-      <Project>{b2763439-dadc-4736-980c-805b1f4b5be1}</Project>
-      <Name>Catalog.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Catalog.Handlers\Catalog.Handlers.csproj">
-      <Project>{7a520486-e5f1-4841-a53a-e01399c205e8}</Project>
-      <Name>Catalog.Handlers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Domain.Infrastructure\Preferences.Domain.Infrastructure.csproj">
-      <Project>{7b238cdb-d0e4-4ac8-8008-9ede907f02b7}</Project>
-      <Name>Preferences.Domain.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Domain\Preferences.Domain.csproj">
-      <Project>{ac71dc2a-2312-40b2-b720-c7f1c6cff29a}</Project>
-      <Name>Preferences.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Framework\Framework.Logs\Framework.Logs.csproj">
       <Project>{1F1D31DF-9086-4C45-B0D2-D7BE847C4649}</Project>
@@ -164,14 +148,6 @@
     <ProjectReference Include="..\Framework\Framework.Patterns\Framework.Patterns.csproj">
       <Project>{71b541ac-2b1d-42aa-8351-4ef95e25f2d9}</Project>
       <Name>Framework.Patterns</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Preferences.Handlers\Preferences.Handlers.csproj">
-      <Project>{7edfda16-92da-46cd-a12d-a2e9025afc42}</Project>
-      <Name>Preferences.Handlers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SharedKernell\SharedKernell.csproj">
-      <Project>{335796c4-1bed-453c-9121-221e11b6579a}</Project>
-      <Name>SharedKernell</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

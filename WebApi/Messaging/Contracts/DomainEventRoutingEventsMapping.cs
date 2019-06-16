@@ -1,9 +1,9 @@
-﻿using System;
-using Domain.Contracts.IntegrationEvents.Catalog;
+﻿using Catalog.Domain.Events;
 using Framework.Messaging.Consume;
 using Framework.Messaging.Converters;
 using Framework.Patterns.Messaging;
 using Identity.Domain.Events;
+using System;
 
 namespace WebApi.Messaging.Contracts
 {
